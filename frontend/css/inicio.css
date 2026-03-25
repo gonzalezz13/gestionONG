@@ -108,6 +108,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 .tarjeta h3 {
@@ -119,4 +120,39 @@
     font-size: 1rem;
     color: #666;
     line-height: 1.6;
+}
+
+/* ESTADÍSTICAS */
+
+.estadisticas {
+    background-color: #1e293b;
+    padding: 80px 20px;
+    margin-top: 100px;
+}
+
+.estadisticas-contenedor {
+    display: flex;
+    justify-content: space-evenly;
+    max-width: 1300px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.estadistica {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.numero {
+    color: #3da9fc;
+    font-size: 3.5rem;
+    font-weight: bold;
+}
+
+.descripcion {
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 10px;
 }
