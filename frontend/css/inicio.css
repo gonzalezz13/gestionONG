@@ -1,3 +1,4 @@
+/* HERO */
 .hero {
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../assets/images/hero-bg.jpg");
     background-size: cover;
@@ -7,6 +8,7 @@
     align-items: center;
     justify-content: center;
     color: white;
+    padding: 30px;
 }
 
 .hero-contenido {
@@ -58,4 +60,63 @@
 .boton-secundario {
     background-color: transparent;
     border: 2px solid white;
+}
+
+/* MISIÓN Y PROPÓSITO */
+
+.mision {
+    padding: 20px;
+    margin-top: 60px;
+}
+
+.mision h2 {
+    font-size: 2.2rem;
+}
+
+.subtitulo {
+    color: #1e6cc5;
+    font-weight: bold;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.tarjetas-contenedor {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 3rem;
+    max-width: 1300px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+.tarjeta {
+    background-color: white;
+    flex: 1;
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.icono-tarjeta {
+    height: 50px;
+    width: 50px;
+    margin-bottom: 30px;
+    border-radius: 25%;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tarjeta h3 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+
+.tarjeta p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
 }
