@@ -4,3 +4,7 @@ body {
     background-color: whitesmoke;
     font-family: 'Inter', sans-serif;
 }
+
+main {
+    margin-bottom: 100px;
+}
