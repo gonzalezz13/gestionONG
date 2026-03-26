@@ -26,7 +26,7 @@ CREATE TABLE volunteers_activities (
   volunteer_id INT NOT NULL,
   activity_id INT NOT NULL,
   enrollment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  status ENUM('inscrito', 'asistió', 'canceló', 'lista_espera') DEFAULT 'inscrito',
+  status ENUM('inscrito', 'asistio', 'cancelo', 'lista_espera') DEFAULT 'inscrito',
   
   PRIMARY KEY (volunteer_id, activity_id),
   
@@ -40,18 +40,18 @@ CREATE TABLE volunteers_activities (
 );
 
 INSERT INTO volunteers (name, email, password, phone_number, birth_date, about_me) VALUES
-('Juan Pérez', 'juan.perez@email.com', '$2y$10$e0MYzXy...', '600111222', '1990-05-15', 'Me apasiona ayudar en proyectos de reforestación y limpieza de costas.'),
-('María García', 'm.garcia@email.com', '$2y$10$e0MYzXy...', '600333444', '1985-11-20', 'Enfermera jubilada con ganas de colaborar en brigadas de salud.'),
+('Juan Pérez', 'juan.perez@email.com', '$2y$10$e0MYzXy...', '600111222', '1990-05-15', 'Soy voluntario en reforestación y limpieza de playas.'),
+('María García', 'm.garcia@email.com', '$2y$10$e0MYzXy...', '600333444', '1985-11-20', 'Enfermera jubilada con ganas de colaborar en aspectos de salud.'),
 ('Carlos López', 'clopez@email.com', '$2y$10$e0MYzXy...', '600555666', '1998-02-10', 'Estudiante de ingeniería, puedo ayudar con tareas logísticas y técnicas.'),
-('Ana Martínez', 'ana.mtz@email.com', '$2y$10$e0MYzXy...', '600777888', '1992-08-30', 'Especialista en educación infantil. Me encanta dar clases de apoyo.'),
+('Ana Martínez', 'ana.mtz@email.com', '$2y$10$e0MYzXy...', '600777888', '1992-08-30', 'Especialista en educación infantil. Podría dar clases de apoyo.'),
 ('Luis Rodríguez', 'lucho_rod@email.com', '$2y$10$e0MYzXy...', '600999000', '1980-03-12', 'Cocinero profesional interesado en colaborar en comedores sociales.'),
 ('Elena Sánchez', 'elena.s@email.com', '$2y$10$e0MYzXy...', '611222333', '1995-07-25', 'Aficionada a la fotografía y redes sociales para dar visibilidad a causas.'),
 ('Diego Gómez', 'dgomez@email.com', '$2y$10$e0MYzXy...', '622333444', '1988-12-05', 'Experto en huertos urbanos y sostenibilidad ambiental.'),
-('Lucía Díaz', 'lucia.diaz@email.com', '$2y$10$e0MYzXy...', '633444555', '2001-01-18', 'Joven entusiasta con muchas ganas de aprender y ayudar en lo que sea.'),
+('Lucía Díaz', 'lucia.diaz@email.com', '$2y$10$e0MYzXy...', '633444555', '2001-01-18', 'Tengo muchas ganas de aprender y ayudar en lo que sea.'),
 ('Javier Ruiz', 'j.ruiz@email.com', '$2y$10$e0MYzXy...', '644555666', '1975-06-02', 'Conductor de camiones, disponible para transporte de donaciones.'),
-('Sofía Morales', 'sofia.m@email.com', '$2y$10$e0MYzXy...', '655666777', '1993-09-09', 'Psicóloga interesada en apoyo emocional a personas mayores.');
+('Sofía Morales', 'sofia.m@email.com', '$2y$10$e0MYzXy...', '655666777', '1993-09-09', 'Psicóloga especializada en apoyo emocional a personas mayores.');
 
 INSERT INTO activities (title, description, location, activity_date, max_participants, category, status) VALUES
-('Reforestación del Bosque Local', 'Plantación de 200 árboles autóctonos para recuperar la zona afectada por el incendio.', 'Parque Natural del Este', '2024-05-10 09:00:00', 50, 'ambiental', 'programada'),
-('Taller de Lectura para Niños', 'Lectura de cuentos y actividades lúdicas para fomentar el hábito de lectura en la biblioteca.', 'Biblioteca Municipal Central', '2024-04-15 17:30:00', 10, 'educativa', 'programada'),
-('Reparto de Alimentos Semanal', 'Clasificación y entrega de cestas básicas de alimentos a familias del barrio.', 'Centro Comunitario San José', '2024-03-25 10:00:00', 15, 'social', 'en curso');
+('Reforestación del Bosque Local', 'Plantación de 200 árboles autóctonos para recuperar la zona afectada por el incendio.', 'Parque Natural', '2026-05-10 09:00:00', 50, 'ambiental', 'programada'),
+('Taller de Lectura para Niños', 'Lectura de cuentos y actividades lúdicas para fomentar el hábito de lectura en la biblioteca.', 'Biblioteca Municipal', '2026-04-15 17:30:00', 10, 'educativa', 'programada'),
+('Reparto de Alimentos Semanal', 'Clasificación y entrega de lotes de provisiones a familias del barrio.', 'Centro Social', '2026-03-25 10:00:00', 15, 'social', 'en curso');
