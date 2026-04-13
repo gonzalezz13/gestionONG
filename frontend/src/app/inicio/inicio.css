@@ -1,9 +1,11 @@
 /* HERO */
 .hero {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../assets/images/hero-bg.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/imagenPrincipal.jpg");
+    background-attachment: fixed;
     background-size: cover;
-    background-position: center;
-    min-height: 40vh;
+    background-position: center 90%;
+    min-height: 50vh;
+    max-height: 700px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -17,16 +19,18 @@
 }
 
 .hero-contenido h1 {
-    font-size: 3.5rem;
+    font-size: 3.8rem;
     font-weight: bolder;
+    animation: aparecerDesdeAbajo 1.2s ease-out both;
 }
 
 .hero-contenido p {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     margin-bottom: 2rem;
-    max-width: 600px;
+    max-width: 650px;
     margin-left: auto;
     margin-right: auto;
+    animation: aparecerDesdeAbajo 1.2s ease-out 0.6s both;
 }
 
 .resaltado {
@@ -37,15 +41,16 @@
     display: flex;
     justify-content: center;
     gap: 1rem;
+    animation: aparecerDesdeAbajo 1.2s ease-out 1.2s both;
 }
 
 .boton {
-    padding: 12px 20px;
+    padding: 16px 24px;
     border-radius: 50px;
     text-decoration: none;
     font-weight: bold;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .boton:hover {
@@ -58,16 +63,26 @@
 
 }
 
+.boton-principal:hover {
+    box-shadow: 0 0 10px rgba(53, 108, 205, 0.7),
+                0 0 30px rgba(53, 108, 205, 0.3);
+}
+
 .boton-secundario {
     background-color: transparent;
     border: 2px solid white;
     color: white;
 }
 
+.boton-secundario:hover {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.7),
+                0 0 30px rgba(255, 255, 255, 0.3);
+}
+
 /* MISIÓN Y PROPÓSITO */
 
 .mision {
-    padding: 20px;
+    padding: 60px 20px;
     margin-top: 60px;
 }
 
@@ -94,23 +109,44 @@
 }
 
 .tarjeta {
-    background-color: white;
+    background: white;
+    border: 1px solid #e8effd;
+    opacity: 0;
     flex: 1;
     padding: 40px;
     border-radius: 25px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 32px rgba(53, 108, 205, 0.1);
+    transition: all 1.2s ease;
+    transform: translateY(40px);
+    cursor: pointer; 
+}
+
+.tarjeta-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+.tarjeta:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 48px rgba(53, 108, 205, 0.2);
 }
 
 .icono-tarjeta {
-    height: 50px;
-    width: 50px;
-    margin-bottom: 30px;
-    border-radius: 25%;
-    padding: 10px;
+    height: 64px;
+    width: 64px;
+    margin-bottom: 24px;
+    border-radius: 16px;
+    background-color: #f0f6ff;
+    color: #356ccd;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
+}
+
+.icono-tarjeta svg {
+    width: 32px;
+    height: 32px;
 }
 
 .tarjeta h3 {
@@ -162,7 +198,9 @@
 /* PANEL REDIRECCIÓN ALTA VOLUNTARIOS */
 
 .redireccion {
-    background-color: #308cd3;
+    background: linear-gradient(135deg, #1a5fa8, #308cd3, #3ab5e6, #1a5fa8);
+    background-size: 400% 400%;
+    animation: moverGradiente 5s ease infinite;
     padding: 100px 20px;
     margin-top: 100px;
     max-width: 1200px;
@@ -210,4 +248,21 @@
 .boton-redireccion {
     background-color: white;
     color: rgb(53, 108, 205);
+}
+
+@keyframes moverGradiente {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+
+@keyframes aparecerDesdeAbajo {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
