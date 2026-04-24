@@ -1,3 +1,18 @@
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
 /* HERO */
 .hero {
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/imagenPrincipal.jpg");
@@ -21,7 +36,7 @@
 .hero-contenido h1 {
     font-size: 3.8rem;
     font-weight: bolder;
-    animation: aparecerDesdeAbajo 1.2s ease-out both;
+    animation: fadeInUp 1.2s ease-out both;
 }
 
 .hero-contenido p {
@@ -30,7 +45,7 @@
     max-width: 650px;
     margin-left: auto;
     margin-right: auto;
-    animation: aparecerDesdeAbajo 1.2s ease-out 0.6s both;
+    animation: fadeInUp 1.2s ease-out 0.6s both;
 }
 
 .resaltado {
@@ -41,7 +56,7 @@
     display: flex;
     justify-content: center;
     gap: 1rem;
-    animation: aparecerDesdeAbajo 1.2s ease-out 1.2s both;
+    animation: fadeInUp 1.2s ease-out 1.2s both;
 }
 
 .boton {
@@ -199,7 +214,7 @@
 
 .redireccion {
     background: linear-gradient(135deg, #1a5fa8, #308cd3, #3ab5e6, #1a5fa8);
-    background-size: 400% 400%;
+    background-size: 500% 500%;
     animation: moverGradiente 5s ease infinite;
     padding: 100px 20px;
     margin-top: 100px;
@@ -254,15 +269,4 @@
     0% {background-position: 0% 50%;}
     50% {background-position: 100% 50%;}
     100% {background-position: 0% 50%;}
-}
-
-@keyframes aparecerDesdeAbajo {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
