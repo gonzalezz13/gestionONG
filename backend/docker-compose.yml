@@ -1,0 +1,19 @@
+services:
+  db:
+    image: mariadb:11
+    container_name: gestion_voluntarios_ong
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: proyecto
+      MARIADB_USER: dev
+      MARIADB_PASSWORD: dev
+      MARIADB_ROOT_HOST: "%"
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./db/init:/docker-entrypoint-initdb.d
+
+volumes:
+  db_data:
