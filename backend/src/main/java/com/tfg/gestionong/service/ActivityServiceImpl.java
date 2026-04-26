@@ -22,6 +22,11 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
+    public java.util.List<Activity> getAllActivities() {
+        return repository.findAll();
+    }
+
+    @Override
     public Activity updateActivity(int id, Activity activity) {
         if (!repository.existsById(id)) {
             return null;

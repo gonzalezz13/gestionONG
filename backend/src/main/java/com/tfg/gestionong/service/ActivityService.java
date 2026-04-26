@@ -8,6 +8,8 @@ public interface ActivityService {
 
     Activity getActivityById(int id);
 
+    java.util.List<Activity> getAllActivities();
+
     Activity updateActivity(int id, Activity activity);
 
     void deleteActivity(int id);

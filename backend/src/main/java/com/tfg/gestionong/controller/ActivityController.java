@@ -13,6 +13,11 @@ public class ActivityController {
 
     private final ActivityService activityService;
 
+    @GetMapping
+    public ResponseEntity<java.util.List<com.tfg.gestionong.model.Activity>> getAllActivities() {
+        return ResponseEntity.ok(activityService.getAllActivities());
+    }
+
     @PostMapping
     public ResponseEntity<Activity> createActivity(@RequestBody Activity activityToCreate) {
         Activity created = activityService.createActivity(activityToCreate);
