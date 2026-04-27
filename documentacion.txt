@@ -1,0 +1,303 @@
+Además de eso, habrá que hacer un documento técnico que incluya la siguiente información (y que comentaremos también en la clase 5):
+1. Wireframes del diseño de todas las pantallas
+2. Mapa de navegación
+3. Base de datos (Diagrama de clases y Diagrama entidad-relación)
+4. Tecnologías utilizadas
+5. Manual de usuario: Captura de pantalla de cada una de las funcionalidades, y para cada captura, explicación del proceso de uso de esa funcionalidad.
+
+
+Documentación y Propuesta Profesional del Proyecto 
+Título del proyecto: Web para organizar voluntarios en una ONG. 
+Ciclo Formativo: CFGS Desarrollo de Aplicaciones Web. 
+Integrantes: 
+● Gema Mª Miguel Pinillos – Coordinadora, Creatividad y Diseño 
+● Vicente Arnal González – Investigación y Redacción, Creatividad y Diseño Capítulo 0. Abstract 
+Este Proyecto consiste en el desarrollo de una aplicación web pensada para mejorar la gestión del voluntariado en ONG. La idea surge al detectar un problema bastante común: muchas organizaciones siguen utilizando herramientas poco eficientes como hojas de cálculo y aplicaciones de mensajería, lo que complica la organización de turnos, el seguimiento de actividades y el control de horas de los voluntarios. 
+El objetivo principal del proyecto es reunir todo esto en una única plataforma. A través de la aplicación, se podrá gestionar el registro de voluntarios, crear actividades con un número limitado de plazas, organizar horarios y llevar un control automático de la asistencia y las horas realizadas. De esta forma, se busca facilitar el trabajo interno de la organización y mejorar la experiencia de los propios voluntarios. 
+Además, el proyecto tiene en cuenta aspectos de sostenibilidad y responsabilidad social, siguiendo los objetivos de la Agenda 2030. Gracias a la digitalización, se reduce el uso de papel, se evitan desplazamientos innecesarios y se ahorra tiempo. A nivel técnico, se ha utilizado un conjunto de herramientas con Java y Spring Boot para el backend, MariaDB para la base de datos y Docker para facilitar el despliegue y asegurar que la aplicación funcione de forma estable así como Angular para un frontend responsive. 
+Como resultado, se espera mejorar la organización interna de la ONG, aumentar la participación del voluntariado gracias a una aplicación accesible desde distintos dispositivos y garantizar una gestión de datos segura cumpliendo con la normativa vigente. 
+Palabras clave: gestión de voluntariado, digitalización, sostenibilidad, ONG.
+English Version 
+This project involves the development of a web application designed to improve volunteer management within NGOs. The idea arose after identifying a fairly common problem: many organizations still rely on inefficient tools such as spreadsheets and messaging apps, which complicates shift organization, activity tracking, and the monitoring of volunteer hours.
+The main objective of the project is to consolidate all these processes into a single platform. Through the application, it will be possible to manage volunteer registration, create activities with limited slots, organize schedules, and maintain automated control over attendance and hours worked. In doing so, we aim to streamline the organization's internal workload and enhance the experience for the volunteers themselves. 
+Furthermore, the project takes sustainability and social responsibility into account, following the goals of the 2030 Agenda. Thanks to digitalization, paper use is reduced, unnecessary travel is avoided, and time is saved. On a technical level, a set of tools has been used including Java with Spring Boot for the backend, MariaDB for the database, Docker to facilitate deployment and ensure application stability, and Angular for a responsive frontend. 
+As a result, we expect to improve the NGO's internal organization, increase volunteer participation through an application accessible from various devices, and guarantee secure data management in compliance with current regulations. Keywords: volunteer management, digitalization, sustainability, NGO.
+Capítulo 1. Introducción al proyecto 
+Este Proyecto se centra en el desarrollo de una aplicación web orientada a mejorar la gestión del voluntariado en organizaciones no gubernamentales (ONG). La idea surge a partir de una necesidad detectada en este tipo de entidades, donde la organización de voluntarios suele hacerse mediante herramientas poco eficientes como hojas de cálculo, listas en papel o aplicaciones de mensajería. Este sistema provoca errores en la asignación de turnos, falta de control sobre la asistencia y dificultades para llevar un seguimiento claro de las horas realizadas . 
+Para dar solución a este problema, se propone el desarrollo de una plataforma web que permita centralizar toda la información en un único sistema. De esta forma, la ONG podrá gestionar voluntarios, crear actividades con turnos, controlar  la asistencia y registrar horas, mientras que los voluntarios podrán consultar su disponibilidad, apuntarse a actividades y acceder a su información de forma sencilla. 
+El proyecto se ha desarrollado de forma progresiva a lo largo de varias fases. Inicialmente se definió la idea inicial mediante técnicas de creatividad como brainstorming, SCAMPER y Design Thinking, además de realizar un análisis del entorno (DAFO y PESTEL) y se establecieron los objetivos del proyecto . Posteriormente, se incorporó la perspectiva de sostenibilidad, analizando el impacto ambiental, social y de gobernanza (ASG) y alineando el proyecto con los Objetivos de Desarrollo Sostenible (ODS), destacando la reducción del uso de papel y la mejora en la transparencia . Finalmente, integramos la digitalización como eje clave, aplicando herramientas tecnológicas y utilizando tecnologías como Angular, Spring Boot, MariaDB y Docker para construir una solución escalable, segura y eficiente . 
+En este documento se recoge todo el proceso que hemos seguido durante el desarrollo del proyecto. En primer lugar, se presenta la idea inicial y el proceso creativo que llevó a su definición. A continuación, se analiza su impacto en términos de sostenibilidad y digitalización. También se detallan los aspectos técnicos, la planificación del proyecto y la organización del equipo. 
+En conjunto, en esta memoria pretendemos ofrecer una visión completa del proyecto, mostrando no solo el resultado final, sino también todo el proceso de análisis, diseño y desarrollo que ha permitido llevarlo a cabo. 
+Capítulo 2. Idea del proyecto y análisis inicial 
+En este capítulo explicamos cómo surge la idea del proyecto, el proceso seguido para definirla y el análisis del entorno en el que se desarrolla. Todo esto ha servido como base para construir una solución realista y útil dentro del sector del voluntariado. 
+2.1 Origen de la idea y problema detectado 
+El proyecto nace a partir de un problema bastante común en muchas ONG: la gestión del voluntariado se realiza mediante herramientas poco organizadas como hojas de cálculo, listas en papel o mensajes sueltos en aplicaciones como WhatsApp. Esto provoca confusión en los turnos, errores en la asistencia y dificultades para llevar un control de las horas realizadas. 
+Además, esta forma de trabajar hace que la información esté dispersa, lo que complica la organización y reduce la eficiencia. Por eso se detectó la necesidad de crear una herramienta que centralice toda esta gestión en un único sistema.
+2.2 Solución propuesta 
+Como solución, nos planteamos el desarrollo de una aplicación web accesible desde distintos dispositivos (móvil, ordenador o tablet). Esta aplicación permitirá a la ONG gestionar voluntarios, actividades y turnos, así como registrar la asistencia y las horas realizadas. 
+Por otro lado, los voluntarios podrán registrarse, indicar su disponibilidad, consultar sus turnos y conocer la información de las actividades en las que participan. 
+La idea principal es simplificar todo el proceso y hacerlo más claro, evitando depender de múltiples herramientas y reduciendo errores. 
+2.3 Proceso de creatividad e innovación 
+Para llegar a esta idea final, hemos seguido un proceso de creatividad estructurado. En primer lugar, realizamos una lluvia de ideas (brainstorming), donde se propusieron diferentes tipos de aplicaciones, como una web para buscar piso, reportar incidencias o gestionar reservas. 
+Después de analizar las opciones, elegimos la gestión de voluntariado porque respondía a una necesidad real y era viable como proyecto. 
+También aplicamos la técnica SCAMPER, que permitió mejorar la idea inicial. Por ejemplo, se sustituyeron las listas en papel por una web, se combinaron varias funcionalidades en un solo sistema y se reorganizó toda la información para hacerla más clara. 
+Además, utilizamos el enfoque Design Thinking, que ayudó a entender mejor las necesidades de las ONG. Se analizó cómo trabajan actualmente, se definió el problema principal y se planteó una solución adaptada a esa realidad. 
+Gracias a todo este proceso, la idea final no surgió al azar, sino como resultado de un análisis previo y una planificación. 
+2.4 Análisis del entorno (DAFO y PESTEL) 
+Para comprobar la viabilidad del proyecto, se realizó un análisis del entorno utilizando herramientas como el DAFO y el PESTEL. 
+En el análisis DAFO, se identificaron como principales fortalezas la centralización de la información, el ahorro de tiempo y el control de asistencia y horas. Como debilidades, se detectó que puede costar adaptarse al sistema y que es importante gestionar bien los datos. En cuanto a oportunidades, destaca el crecimiento de la digitalización en las ONG, mientras que como amenazas existen otras plataformas similares y posibles riesgos legales.
+Por otro lado, el análisis PESTEL permitió ver el contexto general. A nivel social, se valora mucho mejorar la organización del voluntariado. A nivel tecnológico, el uso del móvil facilita la adopción de este tipo de herramientas. También se identifican aspectos legales importantes, como la protección de datos personales, que deben cumplirse correctamente.
+2.5 Benchmarking 
+Además, se analizaron plataformas existentes como VolunteerHub o Better Impact, que ya ofrecen soluciones similares para la gestión de voluntarios. 
+De estas herramientas se tomaron ideas importantes, como: 
+● La organización clara de turnos 
+● El uso de recordatorios para evitar fallos 
+● El control de horas y generación de informes 
+Esto ha servido como referencia para diseñar una aplicación que cumpla con las necesidades detectadas. 
+2.6 Objetivos del proyecto 
+El objetivo principal es desarrollar una aplicación web que permita gestionar voluntarios, actividades y horas de forma organizada y accesible. 
+Para conseguirlo, se definieron varios objetivos concretos: 
+● Crear un sistema de registro y login
+● Permitir la gestión de actividades y turnos
+● Mostrar la disponibilidad de los voluntarios
+● Registrar la asistencia y las horas realizadas
+Estos objetivos ayudan a estructurar el desarrollo del proyecto y a medir si se cumplen los resultados esperados. 
+CAPÍTULO 3. DESARROLLO DE LA PROPUESTA EMPRESARIAL
+ 3.1. Resumen ejecutivo 
+El presente proyecto consiste en el desarrollo de una aplicación web destinada a mejorar la gestión del voluntariado en organizaciones no gubernamentales (ONG). La idea surge tras detectar una problemática real en el funcionamiento diario de muchas entidades del tercer sector, que continúan utilizando listas en papel, hojas de cálculo y mensajes dispersos para coordinar a sus voluntarios, lo que provoca errores, desorganización y pérdida de tiempo. 
+Necesidad detectada 
+A partir del análisis realizado en la UT1, se ha identificado que muchas ONG:
+● No cuentan con una herramienta única para gestionar voluntarios. 
+● Tienen dificultades para controlar turnos, asistencia y horas realizadas. 
+● Pierden información importante al usar múltiples canales (WhatsApp, Excel, papel). 
+● Dedican demasiado tiempo a tareas administrativas que podrían automatizarse. 
+Solución propuesta 
+La solución planteada es una aplicación web responsive, accesible desde ordenador y móvil, que permita: 
+● A la ONG: 
+○ Registrar voluntarios
+○ Crear actividades y turnos con plazas limitadas 
+○ Gestionar asistencia 
+○ Registrar automáticamente las horas realizadas 
+○ Visualizar resúmenes e informes 
+● A los voluntarios: 
+○ Registrarse de forma sencilla
+○ Consultar actividades disponibles
+○ Apuntarse a turnos según su disponibilidad
+○ Ver su historial de horas y participación
+Valor añadido del proyecto 
+Este proyecto aporta un alto valor añadido tanto a nivel organizativo como social: 
+● Ahorro de tiempo administrativo, estimado en más de un 40%. 
+● Reducción de hasta un 80% del uso de papel, según los objetivos de sostenibilidad definidos
+● Mejora de la transparencia, al disponer de datos claros y trazables
+● Incremento de la satisfacción del voluntario, al contar con información clara y accesible
+● Mejora de la imagen de la ONG, al adoptar una gestión moderna y digital. 
+Desde el punto de vista de viabilidad, el proyecto presenta: 
+● Costes bajos de implantación (presupuesto inicial aproximado de 62 €)	● Uso de tecnologías open source
+● Posibilidad de crecimiento y adaptación a ONGs de distintos tamaños.
+
+
+Diagrama comparativo antes/después mostrando reducción de papel, tiempo administrativo y errores.
+3.2. Descripción de la idea, servicio o producto 
+Descripción general 
+El producto final es una plataforma web de gestión del voluntariado, diseñada específicamente para el contexto de las ONG, teniendo en cuenta sus limitaciones de recursos, su carácter social y la necesidad de herramientas simples pero eficaces. 
+La aplicación actúa como un sistema centralizado, donde toda la información relevante (voluntarios, actividades, turnos, asistencia y horas) se gestiona desde un único entorno digital. 
+Público objetivo 
+El proyecto se dirige principalmente a: 
+● ONG pequeñas y medianas, con recursos limitados. 
+● Coordinadores de voluntariado, responsables de organizar actividades. 
+● Personas voluntarias, que participan de forma activa y necesitan información clara. 
+Funcionalidades principales 
+Las funcionalidades se agrupan en dos perfiles: 
+Perfil ONG / Administrador
+● Alta y gestión de voluntarios
+● Creación de actividades y turnos
+● Gestión de plazas disponibles
+● Registro de asistencia
+● Control automático de horas realizadas
+● Visualización de estadísticas e informes básicos
+Perfil Voluntario
+● Registro y acceso seguro
+● Consulta de actividades disponibles
+● Inscripción en turnos
+● Visualización de horarios y ubicación
+● Consulta del historial de participación
+Elementos innovadores 
+Aunque existen herramientas similares en el mercado, esta propuesta se diferencia por: 
+● Simplicidad y facilidad de uso
+● Enfoque específico en ONG pequeñas
+● Integración directa de sostenibilidad y digitalización
+● Diseño responsive pensado para personas con distintos niveles de competencia digital
+● Coste reducido y posibilidad de uso gratuito
+La propuesta responde directamente a las necesidades detectadas en la UT1, eliminando los problemas derivados del uso de herramientas dispersas. 
+
+3.3. Análisis de sostenibilidad 
+Este proyecto integra de forma transversal los principios de sostenibilidad trabajados en la UT2, alineándose con la Agenda 2030, los ODS y los criterios ASG. 
+Alineación con los Objetivos de Desarrollo Sostenible
+Los ODS más relevantes son: 
+● ODS 10 – Reducción de desigualdades 
+Facilita la inclusión social y la participación en el voluntariado. 
+● ODS 11 – Ciudades y comunidades sostenibles 
+Mejora la organización de actividades sociales y comunitarias. 
+● ODS 12 – Producción y consumo responsables 
+Reduce significativamente el consumo de papel y recursos físicos. 
+● ODS 17 – Alianzas para lograr los objetivos 
+Favorece la colaboración entre personas voluntarias y entidades. Criterios ASG 
+Ambientales 
+● Eliminación de listas en papel
+● Reducción de desplazamientos innecesarios
+● Uso eficiente de servidores y recursos digitales
+Sociales
+● Accesibilidad desde diferentes dispositivos
+● Inclusión de personas con distintos perfiles
+● Mejora de la comunicación interna
+Gobernanza 
+● Gestión segura de datos
+● Control de accesos y roles
+● Cumplimiento del RGPD
+● Trazabilidad de actividades y horas
+Economía circular y ecodiseño 
+Se aplican principios de: 
+● Reducir: papel, desplazamientos, duplicidad de tareas
+● Reutilizar: plantillas digitales, datos históricos
+● Reparar: mantenimiento del software en lugar de sustitución
+● Optimizar: código modular y ligero
+Métricas de sostenibilidad 
+● Reducción del 80% del papel en 6 meses
+● Digitalización del 100% de las actividades
+● Formación del 100% de voluntarios
+● Reducción del 30% de desplazamientos
+
+
+Gráfico de barras con indicadores ambientales antes y después. 
+3.4. Análisis de digitalización aplicada 
+La digitalización es un pilar clave del proyecto y se integra de forma transversal, tal como se desarrolló en la UT3. 
+Herramientas digitales de gestión 
+● Trello para organización de tareas
+● Google Docs para documentación colaborativa
+● GitHub para control de versiones y código
+● WhatsApp / Discord para comunicación interna
+Tecnologías habilitadoras empleadas 
+● Frontend: Angular Interfaz responsive, clara y modular
+● Backend: Java + Spring Boot
+Gestión segura de usuarios, actividades y permisos mediante JWT y Spring Security
+● Base de datos: MariaDB
+Almacenamiento estructurado de información
+● Cloud y contenedores: Docker
+Facilita despliegue, escalabilidad y mantenimiento
+Aportación a la eficiencia y competitividad 
+● Automatización de tareas
+● Reducción de errores humanos
+● Mejora de la experiencia del usuario
+● Plataforma escalable y preparada para el futuro
+
+3.5. Plan de implementación 
+Fases del proyecto 
+1. Diseño 
+○ Definición de requisitos
+○ Bocetos de pantallas
+2. Prueba piloto 
+○ Test con una ONG pequeña
+○ Ajustes iniciales
+3. Despliegue 
+○ Puesta en producción
+○ Formación de usuarios
+4. Evaluación 
+○ Medición de indicadores
+○ Propuestas de mejora 
+Equipo y roles 
+● Coordinación del proyecto
+● Creatividad y diseño
+● Investigación y redacción
+● Desarrollo y soporte técnico
+Recursos y presupuesto 
+● Hosting: 30 € 
+● Dominio: 12 € 
+● Difusión: 20 € 
+● Total estimado: 62 € 
+3.6. Indicadores de éxito y evaluación
+ Indicadores cuantitativos 
+● Nº de voluntarios registrados
+● Nº de actividades gestionadas digitalmente
+● Reducción de papel
+● Horas registradas automáticamente
+● Disminución de errores
+Indicadores cualitativos 
+● Satisfacción del voluntariado
+● Mejora de la organización interna
+● Percepción de transparencia
+● Reputación de la ONG
+Estos indicadores permiten evaluar si el proyecto cumple los objetivos planteados desde el inicio y facilitan la toma de decisiones para futuras mejoras. 
+CAPÍTULO 4. DISEÑO Y PRESENTACIÓN DEL DOCUMENTO 
+Tras el desarrollo completo de la propuesta empresarial en el capítulo anterior, en este capítulo se describe el diseño, la maquetación y la presentación visual de la Memoria del proyecto “Web para organizar voluntarios en una ONG”. El objetivo principal ha sido presentar un documento con una apariencia profesional, clara y bien estructurada, cuidando no solo el contenido sino también la forma en la que se comunica. 
+El resultado final es una Memoria pensada para ser leída tanto en un contexto académico como en un entorno profesional, similar al documento que una empresa tecnológica o una ONG podría recibir al evaluar una propuesta digital. 4.1. Normas de estilo y formato aplicadas 
+Durante la elaboración de la Memoria se han aplicado normas de estilo comunes en documentos técnicos y académicos, manteniendo la coherencia visual en todo el proyecto. 
+Tipografía y formato uniforme 
+El documento utiliza una tipografía profesional y homogénea, adecuada para trabajos de Desarrollo de Aplicaciones Web. En toda la Memoria se ha respetado:
+● El mismo tipo de letra en todos los capítulos
+● Un tamaño de letra uniforme para el texto principal
+● Encabezados bien diferenciados para capítulos, apartados y subapartados. 
+● Márgenes equilibrados, interlineado adecuado y texto alineado de forma justificada
+Este formato facilita la lectura y transmite una sensación de orden y claridad, evitando cambios bruscos de estilo entre capítulos. 
+Portada del proyecto 
+La Memoria cuenta con una portada clara y bien definida, en la que se incluyen: 
+● El título del proyecto
+● El ciclo formativo: CFGS Desarrollo de Aplicaciones Web
+● El curso académico
+● Los nombres de las personas integrantes del equipo
+La portada se ha diseñado de manera sencilla y limpia, sin sobrecargarla visualmente, pero ofreciendo una primera imagen profesional del proyecto. Índice y numeración de páginas 
+Se ha incorporado un índice de contenidos, que facilita la localización de los distintos capítulos y apartados de la Memoria. Además: 
+● Todas las páginas están numeradas
+● La numeración es continua y coherente a lo largo de todo el documento. 
+Esto mejora la organización general del proyecto y facilita su revisión y evaluación. 
+4.2. Uso del formato APA 7 para referencias 
+Las fuentes utilizadas en la Memoria se han incluido siguiendo el formato APA 7, tal y como se solicita en las directrices del proyecto.
+Este formato se ha aplicado especialmente en: 
+● Legislación relacionada con la protección de datos (RGPD)
+● Documentación sobre sostenibilidad y Agenda 2030
+● Informes y estudios sobre voluntariado y tercer sector
+● Material de apoyo utilizado en las distintas unidades (UT1, UT2 y UT3). 
+El uso del formato APA 7 aporta rigor académico, claridad en las referencias y coherencia con los estándares habituales en trabajos formativos y profesionales. 
+4.3. Integración de recursos gráficos en la Memoria 
+Para reforzar la comprensión del proyecto y evitar una presentación excesivamente textual, se han integrado distintos elementos gráficos, todos ellos directamente relacionados con el contenido desarrollado en los capítulos anteriores. 
+Tablas comparativas
+ A lo largo de la Memoria se han utilizado tablas para: 
+● Comparar la gestión tradicional del voluntariado con la gestión digital propuesta
+● Resumir indicadores de sostenibilidad y criterios ASG
+● Presentar de forma clara los objetivos e indicadores de éxito. 
+Estas tablas permiten sintetizar información compleja de manera clara y directa. 
+Diagramas y esquemas 
+El documento incluye varios diagramas, entre ellos: 
+● El esquema funcional de la plataforma (usuarios, funcionalidades y beneficios)
+● Diagramas que representan la estructura básica de la aplicación web
+● El diagrama de arquitectura tecnológica del sistema
+Estos esquemas ayudan a visualizar el funcionamiento del proyecto y facilitan su comprensión, incluso para personas sin un perfil técnico avanzado. 
+Cronograma visual 
+Se ha incorporado un cronograma tipo Gantt, donde se representan: 
+● Las fases del proyecto (diseño, prueba piloto, despliegue y evaluación)
+● El orden temporal del desarrollo
+● La planificación general del proyecto. Este elemento gráfico refuerza el apartado del plan de implementación tratado en el Capítulo 3. 
+Gráficos e infografías
+ Los gráficos incluidos en la Memoria permiten visualizar: 
+● El impacto de la digitalización en la ONG (situación antes y después)
+● Los indicadores de sostenibilidad, como la reducción de papel o desplazamientos
+● Los indicadores clave de éxito (KPI) del proyecto
+Estos gráficos aportan un enfoque más visual y profesional, reforzando los datos y conclusiones del proyecto. 
+4.4. Comunicación visual aplicada al proyecto 
+La comunicación visual del documento ha sido cuidada para que la Memoria resulte clara, ordenada y fácil de entender. Para ello se han aplicado los siguientes criterios: 
+● Uso de una jerarquía clara de títulos y subtítulos
+● Separación visual entre bloques de contenido
+● Distribución equilibrada entre texto, tablas y gráficos
+● Evitar la sobrecarga de información en una sola página
+Gracias a estos elementos, el lector puede seguir el contenido de forma progresiva y localizar fácilmente la información más relevante de cada apartado. 
+4.5. Coherencia entre contenido y diseño 
+El diseño general de la Memoria es coherente con la naturaleza del proyecto: 
+● Al tratarse de una aplicación web para una ONG, se ha optado por un diseño sencillo, funcional y accesible
+● Se evita un estilo excesivamente comercial, manteniendo un enfoque social y profesional
+● Todos los recursos gráficos tienen una función informativa y están directamente relacionados con el contenido explicado. 
+Esta coherencia refuerza la sensación de que el proyecto es realista y aplicable en un entorno profesional. 
+4.6. Formato final de entrega
+La Memoria completa se entrega en formato PDF, garantizando: 
+● Que el diseño y la maquetación se mantengan intactos
+● Compatibilidad con cualquier dispositivo
+● Facilidad de envío, almacenamiento y corrección
+El resultado final es un documento bien estructurado, visualmente cuidado y alineado con las directrices marcadas para la entrega del proyecto. 

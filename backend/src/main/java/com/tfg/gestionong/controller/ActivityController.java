@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("/activities")
@@ -14,7 +16,7 @@ public class ActivityController {
     private final ActivityService activityService;
 
     @GetMapping
-    public ResponseEntity<java.util.List<com.tfg.gestionong.model.Activity>> getAllActivities() {
+    public ResponseEntity<List<Activity>> getAllActivities() {
         return ResponseEntity.ok(activityService.getAllActivities());
     }
 

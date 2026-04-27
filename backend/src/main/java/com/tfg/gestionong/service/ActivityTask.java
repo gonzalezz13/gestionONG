@@ -19,15 +19,15 @@ public class ActivityTask {
     @Scheduled(fixedRate = 60000)
     public void actualizarTareasVencidas() {
         System.out.println("Buscando tareas vencidas para finalizar...");
-        
+
         LocalDateTime ahora = LocalDateTime.now();
-        
+
         List<Activity> todas = repository.findAll();
-        
+
         for (Activity actividad : todas) {
-            if (actividad.getActivityDate().isBefore(ahora) && 
-                actividad.getStatus() == Activity.Status.programada) {
-                
+            if (actividad.getActivityDate().isBefore(ahora) &&
+                    actividad.getStatus() == Activity.Status.programada) {
+
                 actividad.setStatus(Activity.Status.finalizada);
                 repository.save(actividad);
                 System.out.println("Tarea finalizada automáticamente: " + actividad.getTitle());
