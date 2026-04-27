@@ -1,0 +1,434 @@
+/* ANIMACIONES GLOBALES */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* LAYOUT PRINCIPAL */
+.directrices-layout {
+    display: flex;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    min-height: 80vh; /* Añadido para que llegue más abajo */
+    animation: fadeInUp 1.0s ease-out;
+}
+
+/* ASIDE INNOVADOR Y ESTILOSO */
+.directrices-sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.sidebar-header h2 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.5px;
+}
+
+.sidebar-header p {
+    color: #64748b;
+    font-size: 0.95rem;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #475569;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
+}
+
+.nav-item svg {
+    color: #64748b;
+    transition: color 0.3s ease;
+}
+
+.nav-item:hover {
+    background-color: #f8fafc;
+    color: #0f172a;
+    transform: translateX(5px);
+}
+
+.nav-item:hover svg {
+    color: #0ea5e9;
+}
+
+.nav-item.active {
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+    color: #ffffff;
+    box-shadow: 0 8px 20px rgba(14, 165, 233, 0.25);
+    border: none;
+}
+
+.nav-item.active svg {
+    color: #ffffff;
+}
+
+.sidebar-help-card {
+    background: linear-gradient(145deg, #f0f9ff 0%, #e0f2fe 100%);
+    border: 1px solid #bae6fd;
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(2, 132, 199, 0.05);
+}
+
+.sidebar-help-card::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 60px;
+    height: 60px;
+    background: #38bdf8;
+    opacity: 0.1;
+    border-radius: 50%;
+}
+
+.sidebar-help-card h4 {
+    color: #0284c7;
+    font-size: 0.85rem;
+    font-weight: 800;
+    margin: 0 0 8px 0;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.sidebar-help-card p {
+    color: #334155;
+    font-size: 0.9rem;
+    margin: 0 0 20px 0;
+    line-height: 1.5;
+}
+
+.btn-help {
+    width: 100%;
+    background: #ffffff;
+    color: #0f172a;
+    border: 1px solid #e2e8f0;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.btn-help:hover {
+    background: #0f172a;
+    color: #ffffff;
+    border-color: #0f172a;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(15, 23, 42, 0.1);
+}
+
+/* ==========================================================================
+   COLUMNA DERECHA (MAIN CONTENT)
+   ========================================================================== */
+.directrices-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    min-width: 0; /* Previene desbordamiento en flex child */
+}
+
+/* 1. BANNER SUPERIOR */
+.repo-banner {
+    position: relative;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    border-radius: 16px;
+    padding: 40px;
+    color: #ffffff;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.1);
+}
+
+.repo-banner-content {
+    position: relative;
+    z-index: 2;
+    max-width: 60%;
+}
+
+.repo-banner h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 0 0 15px 0;
+}
+
+.repo-banner p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #cbd5e1;
+    margin: 0;
+}
+
+.repo-banner-icon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 250px;
+    height: 250px;
+    color: rgba(255, 255, 255, 0.05);
+    z-index: 1;
+}
+
+/* 2. BARRA DE BÚSQUEDA Y FILTROS */
+.repo-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.search-box {
+    flex: 1;
+    min-width: 250px;
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 0 15px;
+    height: 46px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-box:focus-within {
+    border-color: #0ea5e9;
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+}
+
+.search-box input {
+    border: none;
+    background: transparent;
+    width: 100%;
+    padding: 0 10px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: #334155;
+    outline: none;
+}
+
+.search-box input::placeholder {
+    color: #94a3b8;
+}
+
+.filter-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-filter {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 0 16px;
+    height: 46px;
+    color: #475569;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-filter:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    color: #0f172a;
+}
+
+/* 3. GRID DE TARJETAS */
+.repo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 24px;
+}
+
+.doc-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.doc-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.1);
+}
+
+.doc-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.doc-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+}
+
+/* Colores de iconos basados en el diseño de referencia */
+.pdf-icon { background: #fee2e2; color: #ef4444; }
+.doc-icon-blue { background: #e0f2fe; color: #0ea5e9; }
+.doc-icon-yellow { background: #fef9c3; color: #eab308; }
+.doc-icon-green { background: #dcfce7; color: #22c55e; }
+.doc-icon-purple { background: #f3e8ff; color: #a855f7; }
+.doc-icon-orange { background: #ffedd5; color: #f97316; }
+
+.doc-badge {
+    background: #f1f5f9;
+    color: #64748b;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+}
+
+.doc-card-body {
+    flex-grow: 1; /* Empuja el footer hacia abajo */
+    margin-bottom: 20px;
+}
+
+.doc-card-body h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 10px 0;
+    line-height: 1.4;
+}
+
+.doc-card-body p {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.doc-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 16px;
+}
+
+.doc-meta {
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+
+.btn-download {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: none;
+    color: #0ea5e9;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.btn-download:hover {
+    background: #f0f9ff;
+}
+
+/* 4. PAGINACIÓN */
+.repo-pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.page-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    color: #475569;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.page-btn:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+}
+
+.page-btn.active {
+    background: #0ea5e9;
+    border-color: #0ea5e9;
+    color: #ffffff;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .directrices-layout {
+        flex-direction: column;
+    }
+    .directrices-sidebar {
+        width: 100%;
+    }
+    .repo-banner-content {
+        max-width: 100%;
+    }
+    .repo-banner-icon {
+        display: none; /* Ocultamos el icono de fondo en móvil por espacio */
+    }
+}

@@ -1,0 +1,52 @@
+<main class="noticias-container">
+    <!-- Hero Section -->
+    <section class="noticias-hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <span class="badge-top">ACTUALIDAD</span>
+            <h1>Sala de Prensa y <span class="highlight">Noticias</span></h1>
+            <p>Mantente al día con nuestras últimas acciones, eventos e impacto social en todo el mundo.</p>
+        </div>
+    </section>
+
+    <!-- Filters and Search -->
+    <div class="noticias-controls">
+        <div class="categories">
+            <button (click)="filtrar('Todas')" [class.active]="categoriaActiva === 'Todas'">Todas</button>
+            <button (click)="filtrar('Medio Ambiente')" [class.active]="categoriaActiva === 'Medio Ambiente'">Medio Ambiente</button>
+            <button (click)="filtrar('Eventos')" [class.active]="categoriaActiva === 'Eventos'">Eventos</button>
+            <button (click)="filtrar('Educación')" [class.active]="categoriaActiva === 'Educación'">Educación</button>
+            <button (click)="filtrar('Salud')" [class.active]="categoriaActiva === 'Salud'">Salud</button>
+        </div>
+    </div>
+
+    <!-- News Grid -->
+    <section class="noticias-grid">
+        <article class="noticia-card" *ngFor="let noticia of noticiasFiltradas">
+            <div class="card-image">
+                <img [src]="noticia.imagen" [alt]="noticia.titulo">
+                <span class="card-category">{{noticia.categoria}}</span>
+            </div>
+            <div class="card-body">
+                <div class="card-meta">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    <span>{{noticia.fecha}}</span>
+                </div>
+                <h3>{{noticia.titulo}}</h3>
+                <p>{{noticia.resumen}}</p>
+            </div>
+            <div class="card-footer">
+                <a href="#" class="read-more">
+                    Leer más 
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </a>
+            </div>
+        </article>
+    </section>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="noticiasFiltradas.length === 0">
+        <p>No se encontraron noticias en esta categoría.</p>
+        <button (click)="filtrar('Todas')" class="btn-reset">Ver todas</button>
+    </div>
+</main>
