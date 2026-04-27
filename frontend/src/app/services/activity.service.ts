@@ -11,6 +11,8 @@ export interface Activity {
   maxParticipants: number;
   category: string;
   status: string;
+  imageUrl: string;
+  difficulty: string;
 }
 
 @Injectable({

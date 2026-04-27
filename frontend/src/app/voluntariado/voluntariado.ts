@@ -15,7 +15,8 @@ export class Voluntariado implements OnInit {
 
   filtros = {
     categoria: 'Todas',
-    dificultad: 'Todas'
+    dificultad: 'Todas',
+    fecha: 'Todas'
   };
 
   constructor(
@@ -34,7 +35,6 @@ export class Voluntariado implements OnInit {
         console.log('Datos recibidos con éxito:', data);
         this.tareas = data;
         this.loading = false;
-        // Forzamos a Angular a que actualice la vista ahora mismo
         this.cdr.detectChanges();
       },
       error: (err) => {
@@ -47,9 +47,33 @@ export class Voluntariado implements OnInit {
 
   get tareasFiltradas() {
     if (!this.tareas) return [];
+    
     return this.tareas.filter(t => {
-      if (this.filtros.categoria === 'Todas') return true;
-      return t.category.toLowerCase() === this.filtros.categoria.toLowerCase();
+      const hoy = new Date();
+      const fechaTarea = new Date(t.activityDate);
+
+      const esFutura = fechaTarea >= hoy;
+      const estaActiva = t.status !== 'finalizada' && t.status !== 'cancelada';
+
+      const cumpleCategoria = this.filtros.categoria === 'Todas' || 
+                             t.category.toLowerCase() === this.filtros.categoria.toLowerCase();
+      
+      const cumpleDificultad = this.filtros.dificultad === 'Todas' || 
+                              t.difficulty === this.filtros.dificultad;
+
+      let cumpleFechaManual = true;
+      if (this.filtros.fecha !== 'Todas') {
+        if (this.filtros.fecha === '7dias') {
+          const dentroDe7Dias = new Date();
+          dentroDe7Dias.setDate(hoy.getDate() + 7);
+          cumpleFechaManual = fechaTarea >= hoy && fechaTarea <= dentroDe7Dias;
+        } else if (this.filtros.fecha === 'mes') {
+          cumpleFechaManual = fechaTarea.getMonth() === hoy.getMonth() && 
+                             fechaTarea.getFullYear() === hoy.getFullYear();
+        }
+      }
+
+      return esFutura && estaActiva && cumpleCategoria && cumpleDificultad && cumpleFechaManual;
     });
   }
 
@@ -60,4 +84,10 @@ export class Voluntariado implements OnInit {
   setDificultad(dif: string) {
     this.filtros.dificultad = dif;
   }
+
+  setFecha(valor: string) {
+    this.filtros.fecha = valor;
+  }
+
+  esVistaCuadricula: boolean = true;
 }
