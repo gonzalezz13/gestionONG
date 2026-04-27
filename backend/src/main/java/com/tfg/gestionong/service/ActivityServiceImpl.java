@@ -5,11 +5,18 @@ import com.tfg.gestionong.repository.ActivityRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class ActivityServiceImpl implements ActivityService {
 
     private final ActivityRepository repository;
+
+    @Override
+    public List<Activity> getAllActivities() {
+        return repository.findAll();
+    }
 
     @Override
     public Activity createActivity(Activity activity) {
@@ -19,11 +26,6 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public Activity getActivityById(int id) {
         return repository.findById(id).orElse(null);
-    }
-
-    @Override
-    public java.util.List<Activity> getAllActivities() {
-        return repository.findAll();
     }
 
     @Override

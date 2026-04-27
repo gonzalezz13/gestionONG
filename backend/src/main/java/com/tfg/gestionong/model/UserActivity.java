@@ -8,19 +8,19 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "volunteers_activities")
+@Table(name = "users_activities")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class VolunteerActivity {
+public class UserActivity {
 
     @EmbeddedId
-    private VolunteerActivityId id;
+    private UserActivityId id;
 
     @ManyToOne
-    @MapsId("volunteerId")
-    @JoinColumn(name = "volunteer_id")
-    private Volunteer volunteer;
+    @MapsId("userId")
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToOne
     @MapsId("activityId")

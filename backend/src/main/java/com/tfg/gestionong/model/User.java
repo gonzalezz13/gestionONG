@@ -6,11 +6,11 @@ import lombok.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "volunteers")
+@Table(name = "users")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Volunteer {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,4 +28,11 @@ public class Volunteer {
     private String phoneNumber;
 
     private String aboutMe;
+
+    @Enumerated(EnumType.STRING)
+    private Rol rol;
+
+    public enum Rol {
+        volunteer, admin
+    }
 }

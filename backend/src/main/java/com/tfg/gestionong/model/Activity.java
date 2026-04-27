@@ -26,10 +26,8 @@ public class Activity {
 
     private String location;
 
-    @Column(name ="image_url")
     private String imageUrl;
 
-    @Column(name = "difficulty")
     private String difficulty;
 
     @Column(nullable = false)

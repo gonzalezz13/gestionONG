@@ -11,8 +11,8 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class VolunteerActivityId implements Serializable {
+public class UserActivityId implements Serializable {
 
-    private Integer volunteerId;
+    private Integer userId;
     private Integer activityId;
 }
