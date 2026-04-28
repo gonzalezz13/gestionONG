@@ -68,8 +68,10 @@ export class Voluntariado implements OnInit {
           dentroDe7Dias.setDate(hoy.getDate() + 7);
           cumpleFechaManual = fechaTarea >= hoy && fechaTarea <= dentroDe7Dias;
         } else if (this.filtros.fecha === 'mes') {
-          cumpleFechaManual = fechaTarea.getMonth() === hoy.getMonth() && 
-                             fechaTarea.getFullYear() === hoy.getFullYear();
+          const limiteMes = new Date();
+          limiteMes.setDate(hoy.getDate()+ 30);
+
+          cumpleFechaManual = fechaTarea >= hoy && fechaTarea <= limiteMes;
         }
       }
 
