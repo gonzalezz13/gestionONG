@@ -1,0 +1,64 @@
+<div class="login-page">
+  <div class="login-card">
+    <div class="login-header">
+      <h2>Bienvenido de nuevo</h2>
+      <p>Acceso seguro a tu panel de la ONG.</p>
+    </div>
+
+    <form class="login-form" (ngSubmit)="onLogin()">
+      <!-- Role selector -->
+      <div class="form-group">
+        <label>Estoy iniciando sesión como:</label>
+        <div class="role-selector">
+          <button type="button" 
+                  [class.active]="selectedRole === 'Volunteer'" 
+                  (click)="selectRole('Volunteer')">
+            Voluntario
+          </button>
+          <button type="button" 
+                  [class.active]="selectedRole === 'Admin'" 
+                  (click)="selectRole('Admin')">
+            Admin
+          </button>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Dirección de correo</label>
+        <div class="input-wrapper">
+          <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          <input type="email" id="email" [(ngModel)]="loginEmail" name="email" placeholder="nombre@organizacion.org">
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <div class="label-row">
+          <label for="password">Contraseña</label>
+          <a href="#" class="forgot-link" (click)="$event.preventDefault()">¿Olvidaste tu contraseña?</a>
+        </div>
+        <div class="input-wrapper">
+          <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <input type="password" id="password" [(ngModel)]="loginPassword" name="password" placeholder="••••••••">
+        </div>
+      </div>
+
+      <p class="error-message" *ngIf="loginError">{{ loginError }}</p>
+
+      <!-- Submit -->
+      <button type="submit" class="btn-submit" [disabled]="loginLoading">
+        {{ loginLoading ? 'Iniciando sesión...' : 'Iniciar sesión' }}
+        <svg *ngIf="!loginLoading" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </form>
+
+    <div class="login-footer">
+      <p>¿No tienes una cuenta? <a routerLink="/formulario">Regístrate como voluntario</a></p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <p>© 2026 ONG Connect Platform. Secure SSL Encrypted.</p>
+  </div>
+</div>

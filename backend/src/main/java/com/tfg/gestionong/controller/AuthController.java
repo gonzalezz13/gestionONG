@@ -38,16 +38,20 @@ public class AuthController {
 
         User user = usersRepository.findByEmail(loginRequest.getEmail());
         String token = jwtUtil.generateToken(user.getEmail(), user.getRol().name());
-        return ResponseEntity.ok(new LoginResponse(token));
+        return ResponseEntity.ok(new LoginResponse(token, user.getName(), user.getEmail(), user.getRol().name()));
     }
 
     @GetMapping("/me")
     public ResponseEntity<?> me() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth == null) {
-            return ResponseEntity.ok("Sin autenticación");
+        if (auth == null || auth.getName().equals("anonymousUser")) {
+            return ResponseEntity.status(401).body("Sin autenticación");
         }
-        return ResponseEntity.ok("principal=" + auth.getName() + " | authorities=" + auth.getAuthorities() + " | authenticated=" + auth.isAuthenticated());
+        User user = usersRepository.findByEmail(auth.getName());
+        if (user == null) {
+            return ResponseEntity.status(404).body("Usuario no encontrado");
+        }
+        return ResponseEntity.ok(new LoginResponse(null, user.getName(), user.getEmail(), user.getRol().name()));
     }
 
     @PostMapping("/register")

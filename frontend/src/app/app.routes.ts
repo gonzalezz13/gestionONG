@@ -7,9 +7,11 @@ import { Privacidad } from './privacidad/privacidad';
 import { Terminos } from './terminos/terminos';
 import { Noticias } from './noticias/noticias';
 import { Voluntariado } from './voluntariado/voluntariado';
+import { Login } from './auth/login/login';
 
 export const routes: Routes = [
   { path: '', component: Inicio },
+  { path: 'login', component: Login },
   { path: 'formulario', component: Formulario },
   { path: 'directrices', component: Directrices },
   { path: 'noticias', component: Noticias },

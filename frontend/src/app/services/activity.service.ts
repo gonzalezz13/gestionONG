@@ -19,7 +19,7 @@ export interface Activity {
   providedIn: 'root'
 })
 export class ActivityService {
-  private apiUrl = 'http://localhost:8081/activities';
+  private apiUrl = 'http://localhost:8080/activities';
 
   constructor(private http: HttpClient) { }
 
