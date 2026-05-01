@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -16,13 +16,12 @@ export class Login {
   loginPassword = '';
   loginError = '';
   loginLoading = false;
-  selectedRole: 'Volunteer' | 'Admin' = 'Volunteer';
 
-  constructor(private authService: AuthService, private router: Router) {}
-
-  selectRole(role: 'Volunteer' | 'Admin') {
-    this.selectedRole = role;
-  }
+  constructor(
+    private authService: AuthService, 
+    private router: Router,
+    private cdr: ChangeDetectorRef 
+  ) {}
 
   onLogin() {
     if (!this.loginEmail || !this.loginPassword) {
@@ -36,11 +35,13 @@ export class Login {
     this.authService.login(this.loginEmail, this.loginPassword).subscribe({
       next: () => {
         this.loginLoading = false;
-        this.router.navigate(['/']); // Redirige a inicio tras login
+        this.cdr.detectChanges();
+        this.router.navigate(['/']);
       },
       error: () => {
         this.loginLoading = false;
         this.loginError = 'Credenciales incorrectas. Inténtalo de nuevo.';
+        this.cdr.detectChanges(); 
       }
     });
   }

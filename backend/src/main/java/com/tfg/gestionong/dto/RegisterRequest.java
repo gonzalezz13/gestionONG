@@ -13,5 +13,7 @@ public class RegisterRequest {
     private String phoneNumber;
     private LocalDate birthDate;
     private String aboutMe;
+    private String areaInteres;
+    private String disponibilidad;
     private User.Rol rol;
 }

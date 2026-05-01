@@ -8,10 +8,14 @@ import { Terminos } from './terminos/terminos';
 import { Noticias } from './noticias/noticias';
 import { Voluntariado } from './voluntariado/voluntariado';
 import { Login } from './auth/login/login';
+import { ForgotPassword } from './auth/forgot-password/forgot-password';
+import { ResetPassword } from './auth/reset-password/reset-password';
 
 export const routes: Routes = [
   { path: '', component: Inicio },
   { path: 'login', component: Login },
+  { path: 'forgot-password', component: ForgotPassword },
+  { path: 'reset-password', component: ResetPassword },
   { path: 'formulario', component: Formulario },
   { path: 'directrices', component: Directrices },
   { path: 'noticias', component: Noticias },

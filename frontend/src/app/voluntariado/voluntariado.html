@@ -90,7 +90,12 @@
                             <label>MÁX. PARTICIPANTES</label>
                             <p><strong>{{tarea.maxParticipants}}</strong> plazas</p>
                         </div>
-                        <button class="btn-apply">Apuntarme</button>
+                        <div class="actions-container">
+                            <button *ngIf="isAdmin()" class="btn-icon btn-edit" (click)="abrirModalEditarTarea(tarea)" title="Editar actividad">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                            </button>
+                            <button class="btn-apply" *ngIf="isLoggedIn()">Apuntarme</button>
+                        </div>
                     </div>
                 </article>
             </div>
@@ -101,7 +106,95 @@
         </section>
     </div>
 
-    <button class="fab">
+    <button *ngIf="isAdmin()" class="fab" (click)="abrirModalNuevaTarea()" title="Añadir nueva tarea">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
     </button>
+
+    <div class="modal-overlay" *ngIf="mostrarModal" (click)="cerrarModal()">
+        <div class="modal-card" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+                <h2>{{ editandoId ? 'Editar Actividad' : 'Crear Nueva Actividad' }}</h2>
+                <button class="btn-close" (click)="cerrarModal()">&times;</button>
+            </div>
+
+            <div class="alert alert-error" *ngIf="mensajeError">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                {{ mensajeError }}
+            </div>
+
+            <div class="alert alert-success" *ngIf="mensajeExito">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                {{ mensajeExito }}
+            </div>
+            
+            <form (ngSubmit)="guardarTarea()" #tareaForm="ngForm">
+                <div class="form-grid">
+                    <div class="form-group full">
+                        <label>Título de la actividad</label>
+                        <input type="text" [(ngModel)]="nuevaTarea.title" name="title" required placeholder="Ej: Recogida de alimentos en el barrio">
+                    </div>
+
+                    <div class="form-group full">
+                        <label>Descripción detallada</label>
+                        <textarea [(ngModel)]="nuevaTarea.description" name="description" required rows="3" placeholder="Explica qué harán los voluntarios..."></textarea>
+                    </div>
+
+                    <div class="form-group half">
+                        <label>Categoría</label>
+                        <select [(ngModel)]="nuevaTarea.category" name="category" required>
+                            <option value="educativa">Educación</option>
+                            <option value="salud">Salud</option>
+                            <option value="ambiental">Medio Ambiente</option>
+                            <option value="social">Social</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group half">
+                        <label>Dificultad</label>
+                        <select [(ngModel)]="nuevaTarea.difficulty" name="difficulty" required>
+                            <option value="Baja">Baja</option>
+                            <option value="Media">Media</option>
+                            <option value="Alta">Alta</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group third">
+                        <label>Fecha</label>
+                        <input type="date" [(ngModel)]="nuevaTarea.activityDate" name="activityDate" required>
+                    </div>
+
+                    <div class="form-group third">
+                        <label>Hora</label>
+                        <input type="time" [(ngModel)]="nuevaTarea.activityTime" name="activityTime" required>
+                    </div>
+
+                    <div class="form-group third">
+                        <label>Plazas</label>
+                        <input type="number" [(ngModel)]="nuevaTarea.maxParticipants" name="maxParticipants" required min="1">
+                    </div>
+
+                    <div class="form-group full">
+                        <label>Ubicación</label>
+                        <input type="text" [(ngModel)]="nuevaTarea.location" name="location" required placeholder="Ej: Plaza Mayor, Madrid">
+                    </div>
+
+                    <div class="form-group full">
+                        <div class="label-with-link">
+                            <label>URL de la imagen (opcional)</label>
+                            <a href="https://unsplash.com/es" target="_blank" rel="noopener noreferrer" class="link-unsplash">
+                                Buscar en Unsplash
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                            </a>
+                        </div>
+                        <input type="text" [(ngModel)]="nuevaTarea.imageUrl" name="imageUrl" placeholder="https://ejemplo.com/imagen.jpg">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancel" (click)="cerrarModal()">Cancelar</button>
+                    <button type="submit" class="btn-save" [disabled]="!tareaForm.form.valid">{{ editandoId ? 'Guardar Cambios' : 'Crear Actividad' }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </main>

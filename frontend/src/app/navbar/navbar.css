@@ -97,32 +97,34 @@ nav ul li a:hover {
 
 .perfil-btn {
     background: none;
-    border: 2px solid #e2e8f0;
+    border: 2px solid #cbd5e1;
     border-radius: 50%;
-    width: 46px;
-    height: 46px;
+    width: 52px; 
+    height: 52px; 
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     padding: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .perfil-btn:hover {
-    border-color: #337cc6;
-    background-color: #f0f7ff;
-    transform: scale(1.08);
+    border-color: #0f172a;
+    background-color: #ffffff;
+    transform: scale(1.1) translateY(-1px);
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
 }
 
 .perfil-icono {
-    width: 24px;
-    height: 24px;
-    color: #64748b;
+    width: 28px; 
+    height: 28px; 
+    color: #475569;
 }
 
 .perfil-btn:hover .perfil-icono {
-    color: #337cc6;
+    color: #0f172a;
 }
 
 .perfil-avatar {

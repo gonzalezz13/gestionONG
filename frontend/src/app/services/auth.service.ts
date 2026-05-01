@@ -25,20 +25,43 @@ export class AuthService {
   user$ = this.userSubject.asObservable();
 
   constructor(private http: HttpClient) {
-    this.loadUserFromToken();
+    this.initAuth();
+  }
+
+  private initAuth(): void {
+    const savedUser = localStorage.getItem('user');
+    if (savedUser) {
+      this.userSubject.next(JSON.parse(savedUser));
+    }
+    this.refreshUserInfo();
   }
 
   login(email: string, password: string): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.apiUrl}/login`, { email, password }).pipe(
       tap(res => {
+        const userInfo: UserInfo = { name: res.name, email: res.email, rol: res.rol };
         localStorage.setItem('token', res.token);
-        this.userSubject.next({ name: res.name, email: res.email, rol: res.rol });
+        localStorage.setItem('user', JSON.stringify(userInfo)); // Guardamos el usuario
+        this.userSubject.next(userInfo);
       })
     );
   }
 
+  register(userData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, userData);
+  }
+
+  forgotPassword(email: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/forgot-password`, { email });
+  }
+
+  resetPassword(token: string, newPassword: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/reset-password`, { token, newPassword });
+  }
+
   logout(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('user'); // Limpiamos todo
     this.userSubject.next(null);
   }
 
@@ -54,18 +77,23 @@ export class AuthService {
     return this.userSubject.value;
   }
 
-  private loadUserFromToken(): void {
+  isAdmin(): boolean {
+    const user = this.currentUser;
+    return user?.rol?.toLowerCase() === 'admin';
+  }
+
+  private refreshUserInfo(): void {
     const token = this.getToken();
     if (token) {
       this.http.get<LoginResponse>(`${this.apiUrl}/me`, {
         headers: { Authorization: `Bearer ${token}` }
       }).subscribe({
         next: (res) => {
-          this.userSubject.next({ name: res.name, email: res.email, rol: res.rol });
+          const userInfo: UserInfo = { name: res.name, email: res.email, rol: res.rol };
+          localStorage.setItem('user', JSON.stringify(userInfo));
+          this.userSubject.next(userInfo);
         },
-        error: () => {
-          this.logout();
-        }
+        error: () => this.logout()
       });
     }
   }
