@@ -43,10 +43,23 @@
                         <div class="user-avatar-large">{{ getUserInitial() }}</div>
                         <h3>{{ user.name }}</h3>
                         <p class="user-email">{{ user.email }}</p>
-                        <span class="user-badge" [ngClass]="user.rol === 'admin' ? 'badge-admin' : 'badge-volunteer'">
-                            {{ user.rol === 'admin' ? 'Administrador' : 'Voluntario' }}
+                        <span class="user-badge" [ngClass]="isAdmin() ? 'badge-admin' : 'badge-volunteer'">
+                            {{ isAdmin() ? 'Administrador' : 'Voluntario' }}
                         </span>
                     </div>
+                    
+                    <div class="dropdown-links">
+                        <a routerLink="/mis-tareas" (click)="dropdownOpen = false" class="btn-dropdown-link">Mis tareas</a>
+                        
+                        <!-- Opción para Voluntarios -->
+                        <a *ngIf="user && user.rol.toLowerCase() !== 'admin'" routerLink="/mis-mensajes" (click)="dropdownOpen = false" class="btn-dropdown-link">Mis Mensajes</a>
+                        
+                        <!-- Opciones para Administradores -->
+                        <a *ngIf="isAdmin()" routerLink="/propuestas" (click)="dropdownOpen = false" class="btn-dropdown-link">Gestión de Propuestas</a>
+                        <a *ngIf="isAdmin()" routerLink="/participantes" (click)="dropdownOpen = false" class="btn-dropdown-link">Control de Participantes</a>
+                        <a *ngIf="isAdmin()" routerLink="/mensajes" (click)="dropdownOpen = false" class="btn-dropdown-link">Bandeja de Mensajes</a>
+                    </div>
+
                     <div class="dropdown-divider"></div>
                     <button class="btn-logout" (click)="onLogout()" id="logout-btn">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>

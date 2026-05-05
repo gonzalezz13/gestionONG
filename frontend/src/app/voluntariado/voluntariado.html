@@ -49,7 +49,7 @@
                 </div>
                 <h4>¿No encuentras lo que buscas?</h4>
                 <p>Crea tu propia iniciativa y conecta con otros voluntarios.</p>
-                <button class="btn-propose">Proponer Proyecto</button>
+                <button class="btn-propose" (click)="abrirModalPropuesta()" *ngIf="isLoggedIn()">Proponer Proyecto</button>
             </div>
         </aside>
 
@@ -65,7 +65,7 @@
             <div class="tasks-grid" [class.list-view]="!esVistaCuadricula">
                 <div *ngIf="loading" class="loading-state">Cargando actividades...</div>
 
-                <article class="task-card" *ngFor="let tarea of tareasFiltradas">
+                <article class="task-card" *ngFor="let tarea of tareasFiltradas | slice:0:limiteMostrar">
                     <div class="task-image">
                         <img [src]="tarea.imageUrl" [alt]="tarea.title">
                         <span class="task-category" [attr.data-cat]="tarea.category">{{tarea.category | uppercase}}</span>
@@ -87,21 +87,26 @@
                     </div>
                     <div class="task-footer">
                         <div class="cupos">
-                            <label>MÁX. PARTICIPANTES</label>
-                            <p><strong>{{tarea.maxParticipants}}</strong> plazas</p>
+                            <label>PLAZAS DISPONIBLES</label>
+                            <p><strong [class.sin-plazas]="tarea.availablePlaces === 0">{{ tarea.availablePlaces ?? tarea.maxParticipants }}</strong> / {{ tarea.maxParticipants }}</p>
                         </div>
                         <div class="actions-container">
                             <button *ngIf="isAdmin()" class="btn-icon btn-edit" (click)="abrirModalEditarTarea(tarea)" title="Editar actividad">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
                             </button>
-                            <button class="btn-apply" *ngIf="isLoggedIn()">Apuntarme</button>
+                            <button *ngIf="isAdmin()" class="btn-icon btn-delete" (click)="eliminarTarea(tarea.id!)" title="Eliminar actividad">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                            </button>
+                            <button class="btn-apply btn-enrolled" *ngIf="isLoggedIn() && estaApuntado(tarea.id)" (click)="desapuntarse(tarea.id)">Apuntado</button>
+                            <button class="btn-apply" *ngIf="isLoggedIn() && !estaApuntado(tarea.id) && (tarea.availablePlaces === undefined || tarea.availablePlaces > 0)" (click)="apuntarse(tarea.id)">Apuntarme</button>
+                            <button class="btn-full" *ngIf="isLoggedIn() && !estaApuntado(tarea.id) && tarea.availablePlaces === 0" disabled>Completa</button>
                         </div>
                     </div>
                 </article>
             </div>
 
-            <div class="main-footer">
-                <button class="btn-load-more">Ver más tareas</button>
+            <div class="main-footer" *ngIf="tareasFiltradas.length > limiteMostrar">
+                <button class="btn-load-more" (click)="verMasTareas()">Ver más tareas</button>
             </div>
         </section>
     </div>
@@ -113,7 +118,7 @@
     <div class="modal-overlay" *ngIf="mostrarModal" (click)="cerrarModal()">
         <div class="modal-card" (click)="$event.stopPropagation()">
             <div class="modal-header">
-                <h2>{{ editandoId ? 'Editar Actividad' : 'Crear Nueva Actividad' }}</h2>
+                <h2>{{ editandoId ? 'Editar Actividad' : (esModoPropuesta ? 'Proponer Nueva Actividad' : 'Crear Nueva Actividad') }}</h2>
                 <button class="btn-close" (click)="cerrarModal()">&times;</button>
             </div>
 
@@ -130,7 +135,7 @@
             <form (ngSubmit)="guardarTarea()" #tareaForm="ngForm">
                 <div class="form-grid">
                     <div class="form-group full">
-                        <label>Título de la actividad</label>
+                        <label>Título de la {{ esModoPropuesta ? 'propuesta' : 'actividad' }}</label>
                         <input type="text" [(ngModel)]="nuevaTarea.title" name="title" required placeholder="Ej: Recogida de alimentos en el barrio">
                     </div>
 
@@ -192,9 +197,27 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn-cancel" (click)="cerrarModal()">Cancelar</button>
-                    <button type="submit" class="btn-save" [disabled]="!tareaForm.form.valid">{{ editandoId ? 'Guardar Cambios' : 'Crear Actividad' }}</button>
+                    <button type="submit" class="btn-save" [disabled]="!tareaForm.form.valid">
+                        {{ editandoId ? 'Guardar Cambios' : (esModoPropuesta ? 'Enviar Propuesta' : 'Crear Actividad') }}
+                    </button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmación de Borrado -->
+    <div class="modal-overlay" *ngIf="mostrarConfirmarBorrado" (click)="cerrarConfirmarBorrado()">
+        <div class="modal-card modal-confirm" (click)="$event.stopPropagation()">
+            <div class="confirm-icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+            </div>
+            <h2>¿Eliminar actividad?</h2>
+            <p>Esta acción no se puede deshacer. Se borrarán permanentemente todos los datos de la actividad y las inscripciones asociadas.</p>
+            
+            <div class="confirm-actions">
+                <button class="btn-cancel" (click)="cerrarConfirmarBorrado()">Cancelar</button>
+                <button class="btn-confirm-delete" (click)="confirmarBorrado()">Eliminar definitivamente</button>
+            </div>
         </div>
     </div>
 </main>

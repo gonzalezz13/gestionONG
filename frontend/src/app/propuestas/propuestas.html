@@ -1,0 +1,93 @@
+<div class="voluntariado-container">
+    <div class="content-wrapper" style="max-width: 1200px; margin: 0 auto; padding-top: 40px;">
+        <section class="voluntariado-main" style="width: 100%;">
+            <div class="main-header" style="margin-bottom: 40px;">
+                <div class="header-left">
+                    <h1 style="font-size: 2.2rem; font-weight: 800; color: #1e293b; margin-bottom: 8px;">Gestión de Propuestas</h1>
+                    <p style="color: #64748b; font-size: 1.1rem;">Revisa y aprueba las iniciativas enviadas por los voluntarios.</p>
+                </div>
+                <div class="view-options">
+                    <span class="count-badge">{{propuestas.length}} pendientes</span>
+                    <button [class.active]="esVistaCuadricula" (click)="esVistaCuadricula = true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg></button>
+                    <button [class.active]="!esVistaCuadricula" (click)="esVistaCuadricula = false"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg></button>
+                </div>
+            </div>
+
+            <!-- Alerts -->
+            <div *ngIf="mensajeExito" class="alert alert-success">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                {{ mensajeExito }}
+            </div>
+            <div *ngIf="mensajeError" class="alert alert-error">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                {{ mensajeError }}
+            </div>
+
+            <div *ngIf="loading" class="loading-state">
+                <div class="spinner"></div>
+                <span>Cargando propuestas...</span>
+            </div>
+
+            <div *ngIf="!loading && propuestas.length === 0" class="empty-state-container">
+                <div class="empty-state-card">
+                    <div class="empty-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    </div>
+                    <h3>Bandeja de entrada vacía</h3>
+                    <p>No hay propuestas pendientes de revisión. ¡Buen trabajo!</p>
+                    <button class="btn-return" routerLink="/voluntariado">Volver a Voluntariado</button>
+                </div>
+            </div>
+
+            <div class="tasks-grid" [class.list-view]="!esVistaCuadricula" *ngIf="!loading && propuestas.length > 0">
+                <article class="task-card" *ngFor="let tarea of propuestas">
+                    <div class="task-image">
+                        <img [src]="tarea.imageUrl" [alt]="tarea.title">
+                        <span class="task-category" [attr.data-cat]="tarea.category">{{tarea.category | uppercase}}</span>
+                    </div>
+                    <div class="task-body">
+                        <h3>{{tarea.title}}</h3>
+                        <p class="task-desc">{{tarea.description}}</p>
+                        
+                        <div class="task-info">
+                            <div class="info-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                                <span>{{tarea.activityDate | date:'dd/MM/yyyy'}}</span>
+                            </div>
+                            <div class="info-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                <span>{{tarea.location}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="task-footer">
+                        <div class="cupos">
+                            <label>PLAZAS PROPUESTAS</label>
+                            <p><strong>{{ tarea.maxParticipants }}</strong></p>
+                        </div>
+                        <div class="actions-container">
+                            <button class="btn-approve" (click)="aprobarPropuesta(tarea)">Aprobar</button>
+                            <button class="btn-reject" (click)="rechazarPropuesta(tarea.id!)">Rechazar</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal de Confirmación de Borrado -->
+    <div class="modal-overlay" *ngIf="mostrarConfirmarBorrado" (click)="cerrarConfirmarBorrado()">
+        <div class="modal-card modal-confirm" (click)="$event.stopPropagation()">
+            <div class="confirm-icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+            </div>
+            <h2>¿Rechazar propuesta?</h2>
+            <p>Esta acción no se puede deshacer. Se borrará permanentemente la propuesta enviada por el voluntario.</p>
+            
+            <div class="confirm-actions">
+                <button class="btn-cancel" (click)="cerrarConfirmarBorrado()">Cancelar</button>
+                <button class="btn-confirm-delete" (click)="confirmarBorrado()">Rechazar y eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>

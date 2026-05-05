@@ -13,4 +13,6 @@ public interface UserActivityRepository extends JpaRepository<UserActivity, User
     List<UserActivity> findByIdUserId(Integer userId);
 
     List<UserActivity> findByIdActivityId(Integer activityId);
+
+    int countByIdActivityId(Integer activityId);
 }

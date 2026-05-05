@@ -1,0 +1,129 @@
+<div class="mensajes-page">
+    <div class="content-wrapper">
+        <header class="page-header">
+            <div class="header-content">
+                <h1>Bandeja de Entrada</h1>
+                <p>Gestiona las consultas y mensajes recibidos a través del formulario de contacto.</p>
+            </div>
+            <div class="header-stats">
+                <div class="stat-card">
+                    <span class="stat-value total-val">{{ messages.length }}</span>
+                    <span class="stat-label">TOTAL</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value nuevos-val">{{ getUnreadCount() }}</span>
+                    <span class="stat-label">NUEVOS</span>
+                </div>
+            </div>
+        </header>
+
+        <div *ngIf="loading" class="loading-state">
+            <div class="spinner"></div>
+            <span>Cargando consultas...</span>
+        </div>
+
+        <div class="messages-layout" *ngIf="!loading && messages.length > 0">
+            <aside class="messages-list">
+                <div class="list-header">RECIENTES</div>
+                <div class="scroll-area">
+                    <div class="message-card" *ngFor="let msg of messages" 
+                         [class.active]="selectedMessage?.id === msg.id"
+                         (click)="viewMessage(msg)">
+                        
+                        <div class="card-avatar">
+                            {{ msg.nombre.charAt(0) }}
+                        </div>
+
+                        <div class="card-content">
+                            <div class="msg-header">
+                                <span class="msg-author">{{ msg.nombre }}</span>
+                                <span class="msg-date">{{ msg.fechaEnvio | date:'dd/MM' }}</span>
+                            </div>
+                            <div class="category-badge" 
+                                 [class.badge-urgente]="msg.asunto === 'Urgente'"
+                                 [class.badge-general]="msg.asunto !== 'Urgente'">
+                                {{ msg.asunto }}
+                            </div>
+                            <div class="msg-preview">{{ msg.mensaje }}</div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <main class="message-detail" *ngIf="selectedMessage">
+                <header class="detail-header">
+                    <div class="author-meta">
+                        <div class="detail-avatar">
+                            {{ selectedMessage.nombre.charAt(0) }}
+                        </div>
+                        <div class="author-info">
+                            <h2>{{ selectedMessage.nombre }}</h2>
+                            <p>{{ selectedMessage.email }}</p>
+                        </div>
+                    </div>
+                    <div class="msg-timestamp-full">
+                        {{ selectedMessage.fechaEnvio | date:'EEEE, MMMM d, y' }}<br>
+                        {{ selectedMessage.fechaEnvio | date:'HH:mm\'h\'' }}
+                    </div>
+                </header>
+
+                <div class="detail-body">
+                    <div class="category-box-wrapper">
+                        <label>Categoría del mensaje</label>
+                        <span class="badge" 
+                              [class.badge-urgente]="selectedMessage.asunto === 'Urgente'"
+                              [class.badge-general]="selectedMessage.asunto !== 'Urgente'">
+                            {{ selectedMessage.asunto }}
+                        </span>
+                    </div>
+
+                    <div class="original-message-text">
+                        {{ selectedMessage.mensaje }}
+                    </div>
+
+                    <div class="admin-bubble-container" *ngIf="selectedMessage.respuesta">
+                        <div class="bubble-header-row">
+                            <div class="label-group">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                                <span>Respuesta del Administrador</span>
+                            </div>
+                            <span class="time">{{ selectedMessage.fechaRespuesta | date:'d/M/yy, h:mm a' }}</span>
+                        </div>
+                        <div class="bubble-content-text">
+                            {{ selectedMessage.respuesta }}
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="detail-footer-reply">
+                    <div class="reply-input-wrapper">
+                        <textarea [(ngModel)]="replyText" 
+                                  placeholder="Escribe una respuesta para este usuario..."></textarea>
+                        <button class="btn-submit-reply" 
+                                (click)="sendReply()" 
+                                [disabled]="!replyText.trim() || enviandoRespuesta">
+                            {{ enviandoRespuesta ? 'Enviando...' : 'Enviar Respuesta' }}
+                        </button>
+                    </div>
+                </footer>
+            </main>
+
+            <div class="detail-placeholder" *ngIf="!selectedMessage">
+                <div class="placeholder-illustration">📧</div>
+                <h2>Bandeja de Entrada</h2>
+                <p>Selecciona una consulta de la lista para ver los detalles y responder al voluntario.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" *ngIf="showDeleteModal">
+        <div class="modal-content">
+            <h3>¿Eliminar mensaje?</h3>
+            <p>Esta acción no se puede deshacer.</p>
+            <div class="modal-actions">
+                <button (click)="cancelDelete()">Cancelar</button>
+                <button class="btn-danger" (click)="executeDelete()">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>

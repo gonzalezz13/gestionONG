@@ -1,12 +1,15 @@
 package com.tfg.gestionong.controller;
 
+import com.tfg.gestionong.dto.ActivityDTO;
 import com.tfg.gestionong.model.Activity;
+import com.tfg.gestionong.repository.UserActivityRepository;
 import com.tfg.gestionong.service.ActivityService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
@@ -14,10 +17,24 @@ import java.util.List;
 public class ActivityController {
 
     private final ActivityService activityService;
+    private final UserActivityRepository userActivityRepository;
 
     @GetMapping
-    public ResponseEntity<List<Activity>> getAllActivities() {
-        return ResponseEntity.ok(activityService.getAllActivities());
+    public ResponseEntity<List<ActivityDTO>> getAllActivities() {
+        List<Activity> activities = activityService.getAllActivities();
+        List<ActivityDTO> dtos = activities.stream()
+            .map(a -> ActivityDTO.from(a, userActivityRepository.countByIdActivityId(a.getId())))
+            .collect(Collectors.toList());
+        return ResponseEntity.ok(dtos);
+    }
+
+    @GetMapping("/propuestas")
+    public ResponseEntity<List<ActivityDTO>> getProposals() {
+        List<Activity> activities = activityService.getProposals();
+        List<ActivityDTO> dtos = activities.stream()
+            .map(a -> ActivityDTO.from(a, userActivityRepository.countByIdActivityId(a.getId())))
+            .collect(Collectors.toList());
+        return ResponseEntity.ok(dtos);
     }
 
     @PostMapping

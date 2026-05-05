@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.http.HttpMethod;
 
 @Configuration
 @EnableWebSecurity
@@ -27,20 +28,34 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
-                .cors(cors -> cors.configurationSource(request -> {
-                    var corsConfiguration = new org.springframework.web.cors.CorsConfiguration();
-                    corsConfiguration.setAllowedOrigins(List.of("http://localhost:4200"));
-                    corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-                    corsConfiguration.setAllowedHeaders(List.of("*"));
-                    corsConfiguration.setAllowCredentials(true);
-                    return corsConfiguration;
-                }))
+                .cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers("/error/**", "/error").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/contact").permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS, "/contact").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/contact/my-messages").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/contact/*/chat").authenticated()
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/activities", "/activities/**").permitAll()
-                        .requestMatchers("/activities", "/activities/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/ws-chat/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/noticias/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/noticias").permitAll()
+                        .requestMatchers("/noticias/**").hasRole("ADMIN")
+                        .requestMatchers("/noticias").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/activities/propuestas").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/activities/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/activities").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/activities").authenticated()
+                        .requestMatchers("/activities/**").hasRole("ADMIN")
+                        .requestMatchers("/activities").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/directrices/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/directrices").permitAll()
+                        .requestMatchers("/directrices/**").hasRole("ADMIN")
+                        .requestMatchers("/directrices").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/enrollments/**").authenticated()
+                        .requestMatchers("/enrollments/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
@@ -55,5 +70,17 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public org.springframework.web.cors.CorsConfigurationSource corsConfigurationSource() {
+        var configuration = new org.springframework.web.cors.CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("http://localhost:4200"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowCredentials(true);
+        var source = new org.springframework.web.cors.UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }

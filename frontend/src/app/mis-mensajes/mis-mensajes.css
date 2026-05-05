@@ -1,0 +1,253 @@
+.mensajes-page {
+    background-color: #f8fafc;
+    min-height: 100vh;
+    padding: 40px 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.content-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.page-header h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 8px;
+}
+
+.page-header p {
+    color: #64748b;
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+}
+
+.messages-layout {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    background: white;
+    border-radius: 24px;
+    height: 85vh;
+    min-height: 850px;
+    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.05);
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+}
+
+.messages-list {
+    border-right: 1px solid #e2e8f0;
+    background: #fdfdfe;
+}
+
+.list-header {
+    padding: 20px;
+    font-weight: 800;
+    font-size: 0.8rem;
+    color: #64748b;
+    border-bottom: 1px solid #e2e8f0;
+    letter-spacing: 0.05em;
+}
+
+.message-card {
+    padding: 20px;
+    border-bottom: 1px solid #f1f5f9;
+    cursor: pointer;
+    display: flex;
+    gap: 15px;
+    transition: all 0.2s;
+}
+
+.message-card:hover {
+    background: #f8fafc;
+}
+
+.message-card.active {
+    background: #f1f5f9;
+    box-shadow: inset 4px 0 0 #3b82f6;
+}
+
+.card-avatar {
+    width: 40px;
+    height: 40px;
+    background: #dcfce7;
+    color: #166534;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.message-card.active .card-avatar {
+    background: #3b82f6;
+    color: white;
+}
+
+.msg-author {
+    display: block;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 4px;
+}
+
+.status-indicator {
+    font-size: 0.7rem;
+    font-weight: 800;
+    margin-bottom: 5px;
+}
+
+.status-indicator .responded {
+    color: #22c55e;
+}
+
+.msg-preview {
+    font-size: 0.85rem;
+    color: #64748b;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+.message-detail {
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-header {
+    padding: 25px 35px;
+    border-bottom: 1px solid #f1f5f9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.author-meta {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.detail-avatar {
+    width: 50px;
+    height: 50px;
+    background: #3b82f6;
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.author-info h2 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin: 0;
+}
+
+.author-info p {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    margin: 0;
+}
+
+.btn-close-detail {
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.detail-body {
+    padding: 60px 50px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.message-bubble {
+    max-width: 85%;
+    padding: 24px 30px;
+    border-radius: 24px;
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+.user-msg {
+    align-self: flex-end;
+    background: #f1f5f9;
+    color: #1e293b;
+    border-bottom-right-radius: 4px;
+}
+
+.user-msg label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: #64748b;
+    margin-bottom: 8px;
+}
+
+.admin-msg {
+    align-self: flex-start;
+    background: #f0fdf4;
+    color: #166534;
+    border: 1px solid #dcfce7;
+    border-bottom-left-radius: 4px;
+}
+
+.bubble-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+    color: #15803d;
+}
+
+.bubble-date {
+    font-weight: 500;
+    font-size: 0.75rem;
+    color: #86efac;
+}
+
+.detail-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    color: #94a3b8;
+}
+
+.placeholder-illustration {
+    font-size: 5rem;
+    margin-bottom: 20px;
+    opacity: 0.2;
+}
+
+.loading-state {
+    padding: 100px;
+    text-align: center;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f1f5f9;
+    border-top-color: #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }

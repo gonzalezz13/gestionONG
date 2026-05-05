@@ -1,4 +1,4 @@
-import { Component, HostListener, ElementRef } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -10,14 +10,21 @@ import { AuthService, UserInfo } from '../services/auth.service';
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
 })
-export class Navbar {
+export class Navbar implements OnInit {
   dropdownOpen = false;
   user: UserInfo | null = null;
 
-  constructor(private authService: AuthService, private elRef: ElementRef) {}
+  constructor(
+    private authService: AuthService,
+    private elRef: ElementRef,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
-    this.authService.user$.subscribe(u => this.user = u);
+    this.authService.user$.subscribe(u => {
+      this.user = u;
+      this.cdr.markForCheck();
+    });
   }
 
   toggleDropdown(event: Event): void {
@@ -39,5 +46,9 @@ export class Navbar {
 
   getUserInitial(): string {
     return this.user?.name?.charAt(0)?.toUpperCase() || 'U';
+  }
+
+  isAdmin(): boolean {
+    return this.user?.rol?.toLowerCase() === 'admin';
   }
 }

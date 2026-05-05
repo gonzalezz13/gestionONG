@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { Router } from '@angular/router';
 
 export interface LoginResponse {
   token: string;
+  id: number;
   name: string;
   email: string;
   rol: string;
 }
 
 export interface UserInfo {
+  id: number;
   name: string;
   email: string;
   rol: string;
@@ -24,7 +27,7 @@ export class AuthService {
 
   user$ = this.userSubject.asObservable();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     this.initAuth();
   }
 
@@ -33,13 +36,14 @@ export class AuthService {
     if (savedUser) {
       this.userSubject.next(JSON.parse(savedUser));
     }
-    this.refreshUserInfo();
+    // Defer to avoid ExpressionChangedAfterItHasBeenCheckedError during init
+    Promise.resolve().then(() => this.refreshUserInfo());
   }
 
   login(email: string, password: string): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.apiUrl}/login`, { email, password }).pipe(
       tap(res => {
-        const userInfo: UserInfo = { name: res.name, email: res.email, rol: res.rol };
+        const userInfo: UserInfo = { id: res.id, name: res.name, email: res.email, rol: res.rol };
         localStorage.setItem('token', res.token);
         localStorage.setItem('user', JSON.stringify(userInfo)); // Guardamos el usuario
         this.userSubject.next(userInfo);
@@ -63,6 +67,7 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('user'); // Limpiamos todo
     this.userSubject.next(null);
+    this.router.navigate(['/inicio']); // Redirigir al inicio al cerrar sesión
   }
 
   getToken(): string | null {
@@ -89,7 +94,7 @@ export class AuthService {
         headers: { Authorization: `Bearer ${token}` }
       }).subscribe({
         next: (res) => {
-          const userInfo: UserInfo = { name: res.name, email: res.email, rol: res.rol };
+          const userInfo: UserInfo = { id: res.id, name: res.name, email: res.email, rol: res.rol };
           localStorage.setItem('user', JSON.stringify(userInfo));
           this.userSubject.next(userInfo);
         },

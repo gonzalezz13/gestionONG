@@ -50,11 +50,17 @@
           </div>
           <div class="input-group">
             <label>Contraseña</label>
-            <div class="input-with-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#8898aa" viewBox="0 0 16 16">
-                <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2"/>
-              </svg>
-              <input type="password" formControlName="password" placeholder="Mínimo 6 caracteres">
+            <div style="position: relative; width: 100%;">
+              <div class="input-with-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#8898aa" viewBox="0 0 16 16">
+                  <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2"/>
+                </svg>
+                <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Mínimo 6 caracteres">
+              </div>
+              <button type="button" class="toggle-password" (click)="showPassword = !showPassword" *ngIf="voluntarioForm.get('password')?.value?.length > 0">
+                <svg *ngIf="!showPassword" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <svg *ngIf="showPassword" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+              </button>
             </div>
           </div>
         </div>
@@ -166,7 +172,6 @@
         <button type="button" class="btn-cancel" (click)="onCancel()">Cancelar</button>
       </div>
 
-      <!-- Mensaje de error dinámico -->
       <div class="form-error-msg" *ngIf="formError">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
           <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>

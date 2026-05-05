@@ -10,6 +10,8 @@ export interface Activity {
   location: string;
   activityDate: string;
   maxParticipants: number;
+  currentParticipants?: number;
+  availablePlaces?: number;
   category: string;
   status?: string;
   imageUrl: string;
@@ -32,7 +34,13 @@ export class ActivityService {
     return this.http.get<Activity>(`${this.apiUrl}/${id}`);
   }
 
-  createActivity(activity: any): Observable<any> {
+  getProposals(): Observable<Activity[]> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Activity[]>(`${this.apiUrl}/propuestas`, { headers });
+  }
+
+  createActivity(activity: any, isProposal: boolean = false): Observable<any> {
     const token = this.authService.getToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     
@@ -44,7 +52,7 @@ export class ActivityService {
     const activityData = { 
       ...activity, 
       activityDate,
-      status: 'programada' 
+      status: (this.authService.isAdmin() && !isProposal) ? 'programada' : 'propuesta' 
     };
     
     return this.http.post<any>(this.apiUrl, activityData, { headers });
@@ -66,5 +74,43 @@ export class ActivityService {
     };
     
     return this.http.put<any>(`${this.apiUrl}/${id}`, activityData, { headers });
+  }
+
+  deleteActivity(id: number): Observable<any> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete<any>(`${this.apiUrl}/${id}`, { headers });
+  }
+
+  enroll(userId: number, activityId: number): Observable<any> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    
+    const enrollmentData = {
+      id: { userId, activityId },
+      user: { id: userId },
+      activity: { id: activityId },
+      status: 'inscrito'
+    };
+    
+    return this.http.post<any>('http://localhost:8080/enrollments', enrollmentData, { headers });
+  }
+
+  getUserEnrollments(userId: number): Observable<any[]> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<any[]>(`http://localhost:8080/enrollments/user/${userId}`, { headers });
+  }
+
+  unenroll(userId: number, activityId: number): Observable<any> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete<any>(`http://localhost:8080/enrollments/${userId}/${activityId}`, { headers });
+  }
+
+  getEnrollmentsByActivity(activityId: number): Observable<any[]> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<any[]>(`http://localhost:8080/enrollments/activity/${activityId}`, { headers });
   }
 }

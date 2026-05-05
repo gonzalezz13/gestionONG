@@ -18,7 +18,7 @@ export class Formulario implements AfterViewInit {
   loginError = '';
   showSuccessModal = false;
   formError = ''; 
-
+  showPassword = false;
   constructor(
     private fb: FormBuilder, 
     private authService: AuthService, 

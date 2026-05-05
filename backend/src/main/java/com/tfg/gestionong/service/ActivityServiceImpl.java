@@ -15,7 +15,12 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public List<Activity> getAllActivities() {
-        return repository.findAll();
+        return repository.findByStatus(Activity.Status.programada);
+    }
+
+    @Override
+    public List<Activity> getProposals() {
+        return repository.findByStatus(Activity.Status.propuesta);
     }
 
     @Override
