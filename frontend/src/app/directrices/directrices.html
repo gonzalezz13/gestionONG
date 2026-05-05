@@ -1,30 +1,59 @@
 <div class="directrices-layout">
     <aside class="directrices-sidebar">
         <div class="sidebar-header">
-            <h2>Resource Center</h2>
-            <p>Empowering Change through Knowledge</p>
+            <h2>Centro de Recursos</h2>
+            <p>Empoderando el Cambio a través del Conocimiento</p>
         </div>
 
         <nav class="sidebar-nav">
-            <a href="#" class="nav-item active">
+            <a href="javascript:void(0)" 
+               class="nav-item" 
+               [class.active]="categoriaActiva === 'Todos los recursos'"
+               (click)="filtrarPorCategoria('Todos los recursos')">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
                 Todos los recursos
             </a>
-            <a href="#" class="nav-item">
+            <a href="javascript:void(0)" 
+               class="nav-item" 
+               [class.active]="categoriaActiva === 'Misión'"
+               (click)="filtrarPorCategoria('Misión')">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
                 Misión
             </a>
-            <a href="#" class="nav-item">
+            <a href="javascript:void(0)" 
+               class="nav-item" 
+               [class.active]="categoriaActiva === 'Operaciones'"
+               (click)="filtrarPorCategoria('Operaciones')">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                 Operaciones
             </a>
-            <a href="#" class="nav-item">
+            <a href="javascript:void(0)" 
+               class="nav-item" 
+               [class.active]="categoriaActiva === 'Legal'"
+               (click)="filtrarPorCategoria('Legal')">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
                 Legal
             </a>
-            <a href="#" class="nav-item">
+            <a href="javascript:void(0)" 
+               class="nav-item" 
+               [class.active]="categoriaActiva === 'Seguridad'"
+               (click)="filtrarPorCategoria('Seguridad')">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
                 Seguridad
+            </a>
+            <a href="javascript:void(0)" 
+               class="nav-item" 
+               [class.active]="categoriaActiva === 'Reportes'"
+               (click)="filtrarPorCategoria('Reportes')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                Reportes
+            </a>
+            <a href="javascript:void(0)" 
+               class="nav-item" 
+               [class.active]="categoriaActiva === 'Comunicación'"
+               (click)="filtrarPorCategoria('Comunicación')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                Comunicación
             </a>
         </nav>
 
@@ -35,290 +64,45 @@
         </div>
     </aside>
 
-    <!-- Main Content -->
     <main class="directrices-main">
-        
-        <!-- Banner superior -->
         <div class="repo-banner">
             <div class="repo-banner-content">
                 <h2>Repositorio Oficial</h2>
                 <p>Accede a las directrices oficiales, declaraciones de misión y procedimientos operativos para asegurar que entregamos un servicio de impacto juntos.</p>
             </div>
-            <!-- Decoración sutil de fondo -->
             <svg class="repo-banner-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
         </div>
 
-        <!-- Barra de búsqueda y filtros -->
         <div class="repo-controls">
             <div class="search-box">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                <input type="text" placeholder="Buscar documentos por título o palabra clave...">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" 
+                       placeholder="Buscar documentos por título..." 
+                       (input)="buscarDirectrices($event)">
             </div>
             <div class="filter-actions">
-                <!-- <button class="btn-filter">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
-                    Filtros
-                </button> -->
-                <button class="btn-filter">
+                <button class="btn-filter" [class.active-filter]="ordenActivo" (click)="ordenarPorRecientes()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg>
                     Más recientes
                 </button>
             </div>
         </div>
 
-        <!-- Grid de tarjetas de documentos -->
         <div class="repo-grid">
-            
-            <!-- Tarjeta 1 -->
-            <div class="doc-card">
+            <div class="doc-card" *ngFor="let doc of directricesFiltradas">
                 <div class="doc-card-header">
-                    <div class="doc-icon pdf-icon">
+                    <div class="doc-icon" [ngClass]="getIconClass(doc.iconColor)">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                     </div>
-                    <span class="doc-badge badge-mission">MISIÓN</span>
+                    <span class="doc-badge" [ngClass]="getBadgeClass(doc.category)">{{doc.category}}</span>
                 </div>
                 <div class="doc-card-body">
-                    <h3>Declaración de Misión 2024</h3>
-                    <p>Valores fundamentales, objetivos a largo plazo y nuestro enfoque para el desarrollo comunitario sostenible.</p>
+                    <h3>{{doc.title}}</h3>
+                    <p>{{doc.description}}</p>
                 </div>
                 <div class="doc-card-footer">
-                    <span class="doc-meta">1.2 MB • Oct 12</span>
-                    <!-- 
-                      Para que el documento se descargue, usamos una etiqueta <a> 
-                      en lugar de <button>, con la ruta al archivo y el atributo "download" 
-                    -->
-                    <a href="assets/docs/mision-2024.pdf" download="Mision_ONG_2024.pdf" class="btn-download" style="text-decoration: none;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                        Descargar
-                    </a>
-                </div>
-            </div>
-
-            <!-- Tarjeta 2 -->
-            <div class="doc-card">
-                <div class="doc-card-header">
-                    <div class="doc-icon doc-icon-blue">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                    </div>
-                    <span class="doc-badge badge-ops">OPERACIONES</span>
-                </div>
-                <div class="doc-card-body">
-                    <h3>Guía de Integración de Voluntarios</h3>
-                    <p>Procedimientos operativos estándar para nuevos voluntarios que ingresan a operaciones de campo.</p>
-                </div>
-                <div class="doc-card-footer">
-                    <span class="doc-meta">2.4 MB • Sep 28</span>
-                    <button class="btn-download">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                        Descargar
-                    </button>
-                </div>
-            </div>
-
-            <!-- Tarjeta 3 -->
-            <div class="doc-card">
-                <div class="doc-card-header">
-                    <div class="doc-icon doc-icon-yellow">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                    </div>
-                    <span class="doc-badge badge-legal">LEGAL</span>
-                </div>
-                <div class="doc-card-body">
-                    <h3>Código de Conducta y Ética</h3>
-                    <p>Nuestros estándares obligatorios para el comportamiento profesional y el compromiso comunitario.</p>
-                </div>
-                <div class="doc-card-footer">
-                    <span class="doc-meta">850 KB • Oct 05</span>
-                    <button class="btn-download">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                        Descargar
-                    </button>
-                </div>
-            </div>
-
-            <!-- Tarjeta 4 -->
-            <div class="doc-card">
-                <div class="doc-card-header">
-                    <div class="doc-icon doc-icon-green">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                    </div>
-                    <span class="doc-badge badge-safety">SEGURIDAD</span>
-                </div>
-                <div class="doc-card-body">
-                    <h3>Protocolo de Respuesta a Emergencias</h3>
-                    <p>Instrucciones paso a paso para el manejo de crisis durante asignaciones en campo.</p>
-                </div>
-                <div class="doc-card-footer">
-                    <span class="doc-meta">3.1 MB • Ago 15</span>
-                    <button class="btn-download">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                        Descargar
-                    </button>
-                </div>
-            </div>
-
-            <!-- Tarjeta 5 -->
-            <div class="doc-card">
-                <div class="doc-card-header">
-                    <div class="doc-icon doc-icon-purple">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                    </div>
-                    <span class="doc-badge badge-reports">REPORTES</span>
-                </div>
-                <div class="doc-card-body">
-                    <h3>Informe de Impacto Anual 2023</h3>
-                    <p>Revisión de nuestros logros, transparencia financiera y estadísticas de alcance comunitario.</p>
-                </div>
-                <div class="doc-card-footer">
-                    <span class="doc-meta">5.8 MB • Ene 20</span>
-                    <button class="btn-download">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                        Descargar
-                    </button>
-                </div>
-            </div>
-
-            <!-- Tarjeta 6 -->
-            <div class="doc-card">
-                <div class="doc-card-header">
-                    <div class="doc-icon doc-icon-orange">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                    </div>
-                    <span class="doc-badge badge-comm">COMUNICACIÓN</span>
-                </div>
-                <div class="doc-card-body">
-                    <h3>Toolkit de Marca y Mensajes</h3>
-                    <p>Pautas para redes sociales, representación pública y uso oficial de logotipos.</p>
-                </div>
-                <div class="doc-card-footer">
-                    <span class="doc-meta">12.5 MB • Nov 02</span>
-                    <button class="btn-download">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                        Descargar
-                    </button>
-                </div>
-            </div>
-
-            <!-- Tarjeta 7 -->
-            <div class="doc-card">
-                <div class="doc-card-header">
-                    <div class="doc-icon pdf-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                    </div>
-                    <span class="doc-badge badge-mission">MISIÓN</span>
-                </div>
-                <div class="doc-card-body">
-                    <h3>Manual del Voluntariado</h3>
-                    <p>Todo lo que necesitas saber sobre nuestras expectativas y el código de comportamiento del voluntario.</p>
-                </div>
-                <div class="doc-card-footer">
-                    <span class="doc-meta">2.1 MB • Dic 05</span>
-                    <button class="btn-download">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                        Descargar
-                    </button>
-                </div>
-            </div>
-
-            <!-- Tarjeta 8 -->
-            <div class="doc-card">
-                <div class="doc-card-header">
-                    <div class="doc-icon doc-icon-blue">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                    </div>
-                    <span class="doc-badge badge-ops">OPERACIONES</span>
-                </div>
-                <div class="doc-card-body">
-                    <h3>Directrices de Contabilidad</h3>
-                    <p>Políticas de reporte financiero, transparencia contable y manejo de donativos de la ONG.</p>
-                </div>
-                <div class="doc-card-footer">
-                    <span class="doc-meta">4.0 MB • Mar 12</span>
-                    <button class="btn-download">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                        Descargar
-                    </button>
-                </div>
-            </div>
-
-            <!-- Tarjeta 9 -->
-            <div class="doc-card">
-                <div class="doc-card-header">
-                    <div class="doc-icon doc-icon-green">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                    </div>
-                    <span class="doc-badge badge-safety">SEGURIDAD</span>
-                </div>
-                <div class="doc-card-body">
-                    <h3>Guía de Ciberseguridad</h3>
-                    <p>Protección de datos de usuarios, mejores prácticas de contraseñas y privacidad online.</p>
-                </div>
-                <div class="doc-card-footer">
-                    <span class="doc-meta">1.8 MB • Feb 22</span>
-                    <button class="btn-download">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                        Descargar
-                    </button>
-                </div>
-            </div>
-
-            <!-- Tarjeta 10 -->
-            <div class="doc-card">
-                <div class="doc-card-header">
-                    <div class="doc-icon doc-icon-yellow">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                    </div>
-                    <span class="doc-badge badge-legal">LEGAL</span>
-                </div>
-                <div class="doc-card-body">
-                    <h3>Políticas de Privacidad</h3>
-                    <p>Normativas sobre el tratamiento de la información personal de nuestros donantes y miembros.</p>
-                </div>
-                <div class="doc-card-footer">
-                    <span class="doc-meta">600 KB • May 14</span>
-                    <button class="btn-download">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                        Descargar
-                    </button>
-                </div>
-            </div>
-
-            <!-- Tarjeta 11 -->
-            <div class="doc-card">
-                <div class="doc-card-header">
-                    <div class="doc-icon doc-icon-purple">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                    </div>
-                    <span class="doc-badge badge-reports">REPORTES</span>
-                </div>
-                <div class="doc-card-body">
-                    <h3>Informe de Auditoría Externa</h3>
-                    <p>Documento de certificación oficial que avala la transparencia de nuestras cuentas anuales.</p>
-                </div>
-                <div class="doc-card-footer">
-                    <span class="doc-meta">8.4 MB • Jun 30</span>
-                    <button class="btn-download">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                        Descargar
-                    </button>
-                </div>
-            </div>
-
-            <!-- Tarjeta 12 -->
-            <div class="doc-card">
-                <div class="doc-card-header">
-                    <div class="doc-icon doc-icon-orange">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                    </div>
-                    <span class="doc-badge badge-comm">COMUNICACIÓN</span>
-                </div>
-                <div class="doc-card-body">
-                    <h3>Manual de Redes Sociales</h3>
-                    <p>Tono de voz, gestión de crisis online y plantillas para publicaciones oficiales de la ONG.</p>
-                </div>
-                <div class="doc-card-footer">
-                    <span class="doc-meta">15.2 MB • Jul 01</span>
-                    <button class="btn-download">
+                    <span class="doc-meta">{{doc.size}} • {{doc.date}}</span>
+                    <button class="btn-download" (click)="descargarDocumento(doc)">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                         Descargar
                     </button>

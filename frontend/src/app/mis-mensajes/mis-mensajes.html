@@ -1,0 +1,92 @@
+<div class="mensajes-page">
+    <div class="content-wrapper">
+        <header class="page-header">
+            <div class="header-content">
+                <h1>Mis Mensajes</h1>
+                <p>Aquí puedes seguir el estado de tus consultas y las respuestas de nuestro equipo.</p>
+            </div>
+        </header>
+
+        <div *ngIf="loading" class="loading-state">
+            <div class="spinner"></div>
+            <span>Buscando tus mensajes...</span>
+        </div>
+
+        <div class="messages-layout" *ngIf="!loading && messages.length > 0">
+            <div class="messages-list" [class.hidden-mobile]="selectedMessage">
+                <div class="list-header">MIS CONSULTAS</div>
+                <div class="scroll-area">
+                    <div class="message-card" *ngFor="let msg of messages" 
+                         [class.active]="selectedMessage?.id === msg.id"
+                         (click)="viewMessage(msg)">
+                        
+                        <div class="card-avatar">
+                            {{ getInitials(msg.nombre) }}
+                        </div>
+
+                        <div class="card-content">
+                            <div class="msg-header">
+                                <span class="msg-author">{{ msg.asunto }}</span>
+                                <span class="msg-date">{{ msg.fechaEnvio | date:'dd/MM' }}</span>
+                            </div>
+                            <div class="status-indicator" [class.responded]="msg.respuesta">
+                                <span *ngIf="msg.respuesta">✅ RESPONDIDO</span>
+                                <span *ngIf="!msg.respuesta">🕒 PENDIENTE</span>
+                            </div>
+                            <div class="msg-preview">{{ msg.mensaje }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="message-detail" *ngIf="selectedMessage">
+                <div class="detail-header">
+                    <div class="author-meta">
+                        <div class="detail-avatar">
+                            {{ getInitials(selectedMessage.nombre) }}
+                        </div>
+                        <div class="author-info">
+                            <h2>{{ selectedMessage.asunto }}</h2>
+                            <p>Enviado el {{ selectedMessage.fechaEnvio | date:'medium' }}</p>
+                        </div>
+                    </div>
+                    <button class="btn-close-detail" (click)="closeDetail()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+                
+                <div class="detail-body">
+                    <div class="message-bubble user-msg">
+                        <label>TÚ ESCRIBISTE:</label>
+                        <p>{{ selectedMessage.mensaje }}</p>
+                    </div>
+
+                    <div class="message-bubble admin-msg" *ngIf="selectedMessage.respuesta">
+                        <div class="bubble-header">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                            <span>Respuesta de ONG Connect</span>
+                            <span class="bubble-date">{{ selectedMessage.fechaRespuesta | date:'short' }}</span>
+                        </div>
+                        <p>{{ selectedMessage.respuesta }}</p>
+                    </div>
+
+                    <div class="pending-notice" *ngIf="!selectedMessage.respuesta">
+                        <div class="notice-icon">🕒</div>
+                        <p>Aún no hay respuesta. Nuestro equipo suele contestar en menos de 48 horas.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detail-placeholder" *ngIf="!selectedMessage">
+                <div class="placeholder-illustration">✉️</div>
+                <p>Selecciona una consulta para ver los detalles.</p>
+            </div>
+        </div>
+
+        <div class="empty-state" *ngIf="!loading && messages.length === 0">
+            <div class="empty-icon">✉️</div>
+            <h2>No tienes mensajes todavía</h2>
+            <p>Tus consultas aparecerán aquí.</p>
+        </div>
+    </div>
+</div>

@@ -1,76 +1,201 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-
-interface Noticia {
-  id: number;
-  titulo: string;
-  fecha: string;
-  resumen: string;
-  imagen: string;
-  categoria: string;
-}
+import { FormsModule } from '@angular/forms';
+import { NewsService, News } from '../services/news.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-noticias',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule],
   templateUrl: './noticias.html',
   styleUrl: './noticias.css',
 })
-export class Noticias {
-  noticias: Noticia[] = [
-    {
-      id: 1,
-      titulo: 'Nueva campaña de reforestación en el Amazonas',
-      fecha: '24 Abr 2026',
-      resumen: 'Lanzamos una iniciativa para plantar más de 10,000 árboles nativos en zonas afectadas por la deforestación.',
-      imagen: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=800',
-      categoria: 'Medio Ambiente'
-    },
-    {
-      id: 2,
-      titulo: 'Éxito en la Gala Benéfica Anual',
-      fecha: '15 Mar 2026',
-      resumen: 'Gracias a vuestra generosidad, hemos recaudado fondos suficientes para abrir tres nuevos centros educativos.',
-      imagen: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=800',
-      categoria: 'Eventos'
-    },
-    {
-      id: 3,
-      titulo: 'Programa de formación para jóvenes voluntarios',
-      fecha: '02 Feb 2026',
-      resumen: 'Abrimos las inscripciones para el nuevo curso intensivo de liderazgo social y gestión de proyectos comunitarios.',
-      imagen: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&q=80&w=800',
-      categoria: 'Educación'
-    },
-    {
-      id: 4,
-      titulo: 'Alianza estratégica con Salud Global',
-      fecha: '20 Ene 2026',
-      resumen: 'Unimos fuerzas para llevar suministros médicos básicos a comunidades remotas en el sudeste asiático.',
-      imagen: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=800',
-      categoria: 'Salud'
-    },
-    {
-      id: 5,
-      titulo: 'Impacto social: Informe del primer trimestre',
-      fecha: '10 Ene 2026',
-      resumen: 'Analizamos los logros alcanzados en estos primeros meses del año y los retos que nos quedan por delante.',
-      imagen: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800',
-      categoria: 'Corporativo'
-    }
-  ];
-
-  noticiasFiltradas: Noticia[] = [...this.noticias];
+export class Noticias implements OnInit {
+  noticias: News[] = [];
+  noticiasFiltradas: News[] = [];
+  categorias: string[] = ['Todas', 'Medio Ambiente', 'Eventos', 'Educación', 'Salud', 'Corporativo'];
   categoriaActiva: string = 'Todas';
+
+  mostrarModal = false;
+  editandoId: number | null = null;
+  mensajeExito = '';
+  mensajeError = '';
+  guardando = false;
+
+  mostrarConfirmacion = false;
+  noticiaAEliminar: number | null = null;
+
+  nuevaNoticia: News = {
+    title: '',
+    date: '',
+    summary: '',
+    image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=800',
+    category: ''
+  };
+
+  constructor(
+    private newsService: NewsService,
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef
+  ) {}
+
+  ngOnInit(): void {
+    this.cargarNoticias();
+  }
+
+  isAdmin(): boolean {
+    return this.authService.isAdmin();
+  }
+
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
+
+  cargarNoticias(): void {
+    this.newsService.getNews().subscribe({
+      next: (data) => {
+        this.noticias = data;
+        this.aplicarFiltro();
+        this.extraerCategorias();
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Error cargando noticias:', err);
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  extraerCategorias() {
+    const cats = this.noticias.map(n => n.category);
+    const uniqueCats = ['Todas', ...new Set(cats)];
+    if (uniqueCats.length > this.categorias.length) {
+      this.categorias = uniqueCats;
+    }
+  }
 
   filtrar(categoria: string) {
     this.categoriaActiva = categoria;
-    if (categoria === 'Todas') {
-      this.noticiasFiltradas = [...this.noticias];
-    } else {
-      this.noticiasFiltradas = this.noticias.filter(n => n.categoria === categoria);
+    this.aplicarFiltro();
+    this.cdr.detectChanges();
+  }
+
+  private aplicarFiltro() {
+    this.noticiasFiltradas = this.categoriaActiva === 'Todas'
+      ? [...this.noticias]
+      : this.noticias.filter(n => n.category === this.categoriaActiva);
+  }
+
+  abrirModalNueva() {
+    this.editandoId = null;
+    this.mensajeError = '';
+    this.guardando = false;
+    this.nuevaNoticia = {
+      title: '',
+      date: new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' }),
+      summary: '',
+      image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=800',
+      category: ''
+    };
+    this.mostrarModal = true;
+    this.cdr.detectChanges();
+  }
+
+  abrirModalEditar(noticia: News) {
+    this.editandoId = noticia.id || null;
+    this.mensajeError = '';
+    this.guardando = false;
+    this.nuevaNoticia = { ...noticia };
+    this.mostrarModal = true;
+    this.cdr.detectChanges();
+  }
+
+  cerrarModal() {
+    this.mostrarModal = false;
+    this.mensajeError = '';
+    this.mensajeExito = '';
+    this.guardando = false;
+    this.cdr.detectChanges();
+  }
+
+  guardarNoticia() {
+    if (this.guardando) return;
+    this.mensajeError = '';
+    this.mensajeExito = '';
+
+    if (!this.nuevaNoticia.title || !this.nuevaNoticia.summary || !this.nuevaNoticia.category) {
+      this.mensajeError = 'Por favor, rellena todos los campos obligatorios.';
+      this.cdr.detectChanges();
+      return;
     }
+
+    this.guardando = true;
+
+    if (this.editandoId) {
+      this.newsService.updateNews(this.editandoId, this.nuevaNoticia).subscribe({
+        next: () => {
+          this.cargarNoticias();
+          this.cerrarModal();
+          this.mensajeExito = 'Noticia actualizada con éxito.';
+          this.cdr.detectChanges();
+          setTimeout(() => { this.mensajeExito = ''; this.cdr.detectChanges(); }, 2500);
+        },
+        error: (err) => {
+          console.error('Error al actualizar la noticia:', err);
+          this.guardando = false;
+          this.mensajeError = 'Error al actualizar la noticia.';
+          this.cdr.detectChanges();
+        }
+      });
+    } else {
+      this.newsService.createNews(this.nuevaNoticia).subscribe({
+        next: () => {
+          this.cargarNoticias();
+          this.cerrarModal();
+          this.mensajeExito = 'Noticia creada con éxito.';
+          this.cdr.detectChanges();
+          setTimeout(() => { this.mensajeExito = ''; this.cdr.detectChanges(); }, 2500);
+        },
+        error: (err) => {
+          console.error('Error al crear la noticia:', err);
+          this.guardando = false;
+          this.mensajeError = 'Error al crear la noticia.';
+          this.cdr.detectChanges();
+        }
+      });
+    }
+  }
+
+  pedirConfirmacionEliminar(id: number | undefined) {
+    if (!id) return;
+    this.noticiaAEliminar = id;
+    this.mostrarConfirmacion = true;
+    this.cdr.detectChanges();
+  }
+
+  cancelarEliminacion() {
+    this.noticiaAEliminar = null;
+    this.mostrarConfirmacion = false;
+    this.cdr.detectChanges();
+  }
+
+  confirmarEliminacion() {
+    if (!this.noticiaAEliminar) return;
+    this.newsService.deleteNews(this.noticiaAEliminar).subscribe({
+      next: () => {
+        this.noticiaAEliminar = null;
+        this.mostrarConfirmacion = false;
+        this.cargarNoticias();
+        this.mensajeExito = 'Noticia eliminada correctamente.';
+        this.cdr.detectChanges();
+        setTimeout(() => { this.mensajeExito = ''; this.cdr.detectChanges(); }, 2500);
+      },
+      error: (err) => {
+        console.error('Error al eliminar:', err);
+        this.cancelarEliminacion();
+      }
+    });
   }
 }

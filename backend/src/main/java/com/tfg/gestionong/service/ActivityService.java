@@ -8,6 +8,8 @@ public interface ActivityService {
 
     List<Activity> getAllActivities();
 
+    List<Activity> getProposals();
+
     Activity createActivity(Activity activity);
 
     Activity getActivityById(int id);

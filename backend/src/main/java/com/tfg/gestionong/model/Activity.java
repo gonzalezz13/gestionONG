@@ -49,7 +49,8 @@ public class Activity {
         programada("programada"),
         EN_CURSO("en curso"),
         finalizada("finalizada"),
-        cancelada("cancelada");
+        cancelada("cancelada"),
+        propuesta("propuesta");
 
         private final String dbValue;
 

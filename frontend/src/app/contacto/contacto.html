@@ -30,40 +30,91 @@
 
     <h2 id="formulario">2. Formulario de contacto directo</h2>
     <div class="form-container">
-        <form class="contact-form">
+        <form class="contact-form" (ngSubmit)="onSubmit()" #contactForm="ngForm">
             <div class="form-group">
                 <label for="nombre">Nombre completo</label>
-                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre y apellidos" required>
+                <input type="text" id="nombre" name="nombre" [(ngModel)]="contacto.nombre" placeholder="Tu nombre y apellidos" required #nombre="ngModel" [class.invalid]="nombre.invalid && nombre.touched">
             </div>
             
             <div class="form-group">
                 <label for="email">Correo electrónico</label>
-                <input type="email" id="email" name="email" placeholder="tu@email.com" required>
+                <input type="email" id="email" name="email" [(ngModel)]="contacto.email" placeholder="tu@email.com" required email #email="ngModel" [class.invalid]="email.invalid && email.touched">
             </div>
 
             <div class="form-group">
-                <label for="asunto">Asunto</label>
-                <select id="asunto" name="asunto" required>
-                    <option value="" disabled selected>Selecciona un asunto...</option>
-                    <option value="general">Información general</option>
-                    <option value="voluntariado">Voluntariado</option>
-                    <option value="donaciones">Donaciones</option>
-                    <option value="otros">Otros</option>
-                </select>
+                <label>¿En qué podemos ayudarte?</label>
+                <div class="subject-grid">
+                    <label class="subject-option" [class.selected]="contacto.asunto === 'General'">
+                        <input type="radio" name="asunto" [(ngModel)]="contacto.asunto" value="General" required>
+                        <div class="option-content">
+                            <span class="option-icon">💡</span>
+                            <span class="option-text">General</span>
+                        </div>
+                    </label>
+                    <label class="subject-option" [class.selected]="contacto.asunto === 'Voluntariado'">
+                        <input type="radio" name="asunto" [(ngModel)]="contacto.asunto" value="Voluntariado" required>
+                        <div class="option-content">
+                            <span class="option-icon">🤝</span>
+                            <span class="option-text">Voluntariado</span>
+                        </div>
+                    </label>
+                    <label class="subject-option" [class.selected]="contacto.asunto === 'Donaciones'">
+                        <input type="radio" name="asunto" [(ngModel)]="contacto.asunto" value="Donaciones" required>
+                        <div class="option-content">
+                            <span class="option-icon">💰</span>
+                            <span class="option-text">Donaciones</span>
+                        </div>
+                    </label>
+                    <label class="subject-option" [class.selected]="contacto.asunto === 'Urgente'">
+                        <input type="radio" name="asunto" [(ngModel)]="contacto.asunto" value="Urgente" required>
+                        <div class="option-content">
+                            <span class="option-icon">🆘</span>
+                            <span class="option-text">Urgente</span>
+                        </div>
+                    </label>
+                    <label class="subject-option" [class.selected]="contacto.asunto === 'Sugerencias'">
+                        <input type="radio" name="asunto" [(ngModel)]="contacto.asunto" value="Sugerencias" required>
+                        <div class="option-content">
+                            <span class="option-icon">📧</span>
+                            <span class="option-text">Sugerencias</span>
+                        </div>
+                    </label>
+                </div>
             </div>
 
             <div class="form-group">
                 <label for="mensaje">Mensaje</label>
-                <textarea id="mensaje" name="mensaje" rows="5" placeholder="¿En qué podemos ayudarte?" required></textarea>
+                <textarea id="mensaje" name="mensaje" rows="5" [(ngModel)]="contacto.mensaje" placeholder="¿En qué podemos ayudarte?" required #mensaje="ngModel" [class.invalid]="mensaje.invalid && mensaje.touched"></textarea>
             </div>
 
             <div class="checkbox-group">
-                <input type="checkbox" id="privacidad" name="privacidad" required>
+                <input type="checkbox" id="privacidad" name="privacidad" [(ngModel)]="contacto.privacidad" required #priv="ngModel">
                 <label for="privacidad">He leído y acepto la <a routerLink="/privacidad" target="_blank">Política de Privacidad</a></label>
             </div>
 
-            <button type="submit" class="btn-submit">Enviar mensaje</button>
+            <div class="error-container" *ngIf="mostrarError">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                <span>{{ mensajeError }}</span>
+            </div>
+
+            <button type="submit" class="btn-submit" [disabled]="!contactForm.form.valid || enviando" [class.btn-loading]="enviando">
+                <span *ngIf="!enviando">Enviar mensaje</span>
+                <span *ngIf="enviando" class="loader-inline"></span>
+                <span *ngIf="enviando" style="margin-left: 10px;">Enviando...</span>
+            </button>
         </form>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="success-overlay" *ngIf="mostrarExito" (click)="cerrarExito()">
+        <div class="success-modal" (click)="$event.stopPropagation()">
+            <div class="success-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            </div>
+            <h3>¡Mensaje enviado!</h3>
+            <p>Gracias por contactar con nosotros. Hemos recibido tu mensaje correctamente y nuestro equipo te responderá lo antes posible.</p>
+            <button class="btn-close-modal" (click)="cerrarExito()">Entendido</button>
+        </div>
     </div>
 
     <h2 id="sede">3. Nuestra sede central</h2>
